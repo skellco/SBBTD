@@ -1,0 +1,3 @@
+Import('env')
+env.Append(CPPPATH=['.'])
+env.Library('sbbTD', ['sbbTD.cc','sbbLearner.cc','sbbPoint.cc','sbbTeam.cc','sbbMisc.cc','soccer.cc'], LIBS = 'bz2', LIBPATH = '/lib/x86_64-linux-gnu/')

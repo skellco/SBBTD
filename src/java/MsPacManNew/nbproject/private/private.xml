@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/sendingTest.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/agentcontroller/pacman/NNDirectionalPacManController.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/evolution/nsga2/NSGA2.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/sensors/blocks/MsPacManSensorBlock.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/pacman/controllers/Controller.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/sensors/BlockLoadedInputOutputMediator.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/experiment/SinglePopulationGenerationalEAExperiment.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/evolution/genotypes/TWEANNGenotype.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/evolution/mulambda/MuLambda.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/dal/experiment/RunSocketServer.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/facades/ExecutorFacade.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/pacman/Executor.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/networks/TWEANN.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/mmneat/MMNEAT.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/MsPacManTask.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/agentcontroller/pacman/NNCheckEachDirectionPacManController.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/pacman/game/Game.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/sensors/VariableDirectionBlockLoadedInputOutputMediator.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/sensors/MsPacManControllerInputOutputMediator.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/agentcontroller/pacman/NNMsPacMan.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/NoisyLonerTask.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/agentcontroller/pacman/NNPacManController.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/facades/GameFacade.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/parameters/Parameters.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/dal/experiment/RunTrainedNetworks.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/edu/utexas/cs/nn/tasks/mspacman/sensors/directional/VariableDirectionBlock.java</file>
+            <file>file:/C:/Users/jnip/Desktop/MM-NEAT/src/com/illposed/osc/OSCPortIn.java</file>
+        </group>
+    </open-files>
+</project-private>

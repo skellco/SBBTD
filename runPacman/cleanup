@@ -1,0 +1,7 @@
+#!/bin/bash
+rm *.arg
+rm *.err
+rm *.std
+rm *.rslt
+rm *.pdf
+rm checkpoints/*

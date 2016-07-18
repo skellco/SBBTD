@@ -1,0 +1,6 @@
+Import('env')
+#env.Replace(CXX='/usr/local/gcc-4.8.0/bin/g++')
+#env.Replace(CC='/usr/local/gcc-4.8.0/bin/gcc')
+env.Append( CPPPATH=['../sbbTD/'] )
+env.Append( CPPPATH=['/home/skelly/school/phd/unmodified_software/usr/local/include'] )
+env.Program('mspacmanSBBAgent', ['mspacmanSBBAgent.cc','Parse.cc'], CCFLAGS = '-std=c++11', LIBS = ['lo','sbbTD','bz2'], LIBPATH=['../sbbTD/','/usr/local/lib/','/usr/lib/','/lib/x86_64-linux-gnu/','/home/skelly/school/phd/unmodified_software/usr/local/lib'])
