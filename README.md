@@ -1,14 +1,12 @@
-Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
+﻿Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
 of simple programs. SBBTD is an extension of the original c++ code for 
 reinforcement learning tasks, with additional support for transfer learning and task-agnostic diversity mechanisms.
 
-This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. 
-Animations of behaviours in each domain, which illustrate how the modular GP strategies support decision making during 
-gameplay, can be viewed at the following links:
+This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. Animations of behaviours in each domain, which illustrate how the modular GP strategies support decision making during gameplay, can be viewed at the following links:
 
 Half Field Offense: https://www.youtube.com/watch?v=LXYFLU1RAqE
 
-Ms. Pac-Man: https://youtu.be/xRt0AVn5HlI
+Ms. Pac-Man: https://www.youtube.com/watch?v=xRt0AVn5HlI
 
 For instructions on how to run this code, see TUTORIAL.txt. 
 
@@ -20,17 +18,12 @@ Lichodzijewski, P. (2011) A Symbiotic Bid-Based (SBB) framework for problem deco
 
 Further details on SBBTD can be found in:
 
-S. Kelly and M. I. Heywood, “Knowledge transfer from keepaway soccer to half-field offense
-through program symbiosis: Building simple programs for a complex task,” in Proceedings of the ACM Genetic and Evolutionary Computation
-Conference, 2015, pp. 1143–1150.
+S. Kelly and M. I. Heywood, “Knowledge transfer from keepaway soccer to half-field offensethrough program symbiosis: Building simple programs for a complex task,” in Proceedings of the ACM Genetic and Evolutionary Computation Conference, 2015, pp. 1143–1150.
 
-S. Kelly and M. I. Heywood, “Genotypic versus behavioural diversity for teams of programs
-under the 4-v-3 keepaway soccer task,” in Proceedings of the AAAI
+S. Kelly and M. I. Heywood, “Genotypic versus behavioural diversity for teams of programs under the 4-v-3 keepaway soccer task,” in Proceedings of the AAAI
 Conference on Artificial Intelligence, 2014, pp. 3110–3111.
 
-S. Kelly, P. Lichodzijewski, and M. I. Heywood, “On run time libraries
-and hierarchical symbiosis,” in IEEE Congress on Evolutionary Com-
-putation, 2012, pp. 3245–3252.
+S. Kelly, P. Lichodzijewski, and M. I. Heywood, “On run time libraries and hierarchical symbiosis,” in IEEE Congress on Evolutionary Computation, 2012, pp. 3245–3252.
 
 FOR MORE INFORMATION CONTACT
 
