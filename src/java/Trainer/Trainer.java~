@@ -1,0 +1,223 @@
+import java.util.*;
+import java.io.*;
+
+public class Trainer implements SoccerTypes
+{
+    
+    static final int TASK_SHOOTGOAL = 1;
+    static final int TASK_SHOOTGOALVOICED = 2;
+    static final int TASK_KEEPAWAY = 3;
+    
+    final int queueCapacity = 1100;
+
+    ServerParams SP;
+    WorldState WS;
+    TrainerCommandHandler CMD;
+    Connection C;
+    RCSSParser parser;
+    String queueFile;
+    Task task;
+    LinkedList cycleQueue;
+    
+    public Trainer( ServerParams sp, WorldState ws,
+		    Connection c,
+		    TrainerCommandHandler cmd,
+		    RCSSParser parser,
+		    String queueFile,
+		    Task task )
+    {
+	SP = sp;
+	WS = ws;
+	C = c;
+	CMD = cmd;
+        this.parser = parser;
+	this.queueFile = queueFile;
+	this.task = task;
+
+	cycleQueue = new LinkedList();
+    }
+
+    public void saveCycle()
+    {
+	WorldState tmp = new WorldState( SP );
+	tmp.copy( WS );
+	cycleQueue.addLast( tmp );
+	if ( cycleQueue.size() > queueCapacity )
+	    cycleQueue.removeFirst();
+    }
+
+    public void writeCycles()
+    {
+	try {
+	    ObjectOutputStream oos = 
+		new ObjectOutputStream( new FileOutputStream( queueFile ) );
+	    oos.writeObject( cycleQueue );
+	}
+	catch ( Exception e ) {
+	    System.err.println( "Unable to write World State queue: " + e );
+	}
+    }
+
+    public void mainLoop() 
+    {
+	final double version = 8.0;
+	String reply;
+
+	CMD.init( version );
+	reply = C.receive();
+	if ( !reply.equals( "(init ok)" ) ) {
+	    System.err.println( "Unable to init: " + reply );
+	    System.exit( 1 );
+	}
+	
+	CMD.eye( true );
+	
+	CMD.ear(true);
+
+	task.init();
+
+	int time = 0;
+	while ( true ) {
+	    reply = C.receive();
+//	    System.out.println( "*********************" + reply );
+	    parser.analyzeMessage( reply );
+	    if ( WS.getTime() > time ) {//make this != ?
+		time = WS.getTime();
+		saveCycle();
+		if ( !task.processCycle() ) {
+//		System.out.print("GAMMA");
+		    writeCycles();
+		    System.exit( 1 );
+		}
+		
+		if ( SP.synch_mode == 1 )
+		{
+//		    System.out.print("EPSILON");
+		    CMD.done();
+//		    System.out.print("ZETA");
+		}    
+	    }
+   
+	    if ( WS.getPlayMode() == PM_TimeOver )
+		{
+//		   	 System.out.print("ETA");
+			break;
+			//    System.out.print("THETA");
+		}	
+	}
+
+	C.disconnect();
+	System.out.println( "Shutting down trainer." );
+    }
+
+    public static void main( String[] args )
+    {
+	String hostName = "localhost";
+	int trainerPort = 5801;
+	boolean launchMonitor = false;
+	String queueFile = null;
+
+    	int taskType = TASK_SHOOTGOAL;//Default
+    	int startEpisode = 0;//Default
+    	boolean dumpMode = false;//Default
+    	String dumpDir = "";//Default
+	
+	int numKeepers = 3;
+	int numTakers = 2;
+	double kawayWidth = 20;
+	double kawayLength = 20;
+	boolean bounce = false;
+	double elasticity = 1.0;
+	boolean torus = false;
+	double moveSpeed = 0;
+	String kwyFile = null;
+
+	try {
+	    for ( int i = 0; i < args.length; i += 2 ) {
+		if ( args[ i ].equals( "-host" ) ) {
+		    hostName = args[ i + 1 ];
+		}
+		else if ( args[ i ].equals( "-port" ) ) {
+		    trainerPort = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-monitor" ) ) {
+		    launchMonitor = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-queue_file" ) ) {
+		    queueFile = args[ i + 1 ];
+		}
+		else if ( args[ i ].equals( "-keepers" ) ) {
+		    numKeepers = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-takers" ) ) {
+		    numTakers = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-width" ) ) {
+		    kawayWidth = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-length" ) ) {
+		    kawayLength = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-bounce" ) ) {
+		    bounce = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-elasticity" ) ) {
+		    elasticity = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-torus" ) ) {
+		    torus = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-move_speed" ) ) {
+		    moveSpeed = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-kwy" ) ) {
+		    kwyFile = args[ i + 1 ];
+		}
+		else if ( args[ i ].equals( "-taskType" ) ) {
+		    taskType = Integer.parseInt(args[i + 1]);
+		}
+		else if ( args[ i ].equals( "-startEpisode" ) ) {
+		    startEpisode = Integer.parseInt(args[i + 1]);
+		}
+		else if ( args[ i ].equals( "-dumpMode") ) {
+		    if(Integer.parseInt(args[i + 1]) == 0)
+		    	dumpMode = false;
+		    else
+		    	dumpMode = true;	
+		}
+		else if ( args[ i ].equals( "-dumpDir" ) ) {
+		    dumpDir = args[i + 1];
+		}
+		else {
+		    System.err.println( "Unknown option: " + args[ i ] );
+		}
+	    }
+	}
+	catch ( Exception e ) {
+	    System.err.println( "Unable to parse commandline options: " + e );
+	    System.exit( 1 );
+	}
+
+	ServerParams sp = new ServerParams();
+	WorldState ws = new WorldState( sp );
+	Connection c = new Connection( hostName, trainerPort );
+	TrainerCommandHandler cmd = new TrainerCommandHandler( c, ws );
+	RCSSParser parser = new RCSSParser( ws, sp );
+
+	Task task = null;
+	
+	if((taskType == TASK_SHOOTGOAL) || (taskType == TASK_SHOOTGOALVOICED))
+	{	task = new ShootGoalTask( sp, ws, cmd, launchMonitor,
+				      numKeepers, numTakers,
+				      kwyFile, taskType, startEpisode );
+	}
+	if(taskType == TASK_KEEPAWAY)
+	{	task = new KeepawayTask( sp, ws, cmd, launchMonitor,
+				      numKeepers, numTakers,
+				      kwyFile, startEpisode );
+	}
+	
+	Trainer trainer = new Trainer( sp, ws, c, cmd, parser, queueFile, task );
+	trainer.mainLoop();
+    }
+}

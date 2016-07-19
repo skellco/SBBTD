@@ -1,1 +1,37 @@
-a
+=== INTRODUCTION ==============================
+
+This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. This distribution includes a generic learning algorithm and interfaces for both task domains.
+
+=== DEPENDENCIES ==============================
+
+This code was developed under Ubuntu Linux, and should work on other Linux or Unix variants.
+
+The following software is required by the SBB learning algorithm:
+
+	scons
+	make 
+	g++ 
+	jdk
+	libbz2-dev
+
+Additional software for task domains:
+
+	java development kit and runtime environment
+
+RoboCup only:
+
+	rcssserver-15.2.2 https://sourceforge.net/projects/sserver/files/rcssserver/
+	rcssmonitor https://sourceforge.net/projects/sserver/files/rcssmonitor/
+	boost
+	flex
+	bison (bison 2.7 version required)
+
+=== COMPILING =================================
+
+After installing dependencis, navigate to the main SBBTD directory and type:
+
+	scons
+
+=== RUNNING EXPERIMENTS =======================
+
+

@@ -1,0 +1,138 @@
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+public class Connection
+{
+    public static final int MAX_MSG = 4096;
+
+    private DatagramSocket socket;
+    private InetAddress hostIP;
+    private int hostPort;
+
+    public Connection()
+    {
+	try {
+	    socket = new DatagramSocket();
+	    socket.setSoTimeout( 10000 );  // ten seconds timeout for checking server: YL
+	}
+	catch ( SocketException e ) {
+	    System.err.println( "Connection: Could not bind local UDP socket" );
+	    System.exit( 1 );
+	}
+    }
+
+    public Connection( String hostName, int hostPort )
+    {
+	this();
+	if ( !connect( hostName, hostPort ) ) {
+	    System.err.println( "Connection: Could not create connection with " +
+				hostName + ":" + hostPort );
+	    System.exit( 1 );
+	}
+    }
+
+    public boolean connect( String hostName, int hostPort )
+    {
+	try {
+	    hostIP = InetAddress.getByName( hostName );
+	    this.hostPort = hostPort;
+	}
+	catch ( UnknownHostException e ) {
+	    System.err.println( "Connection: Unknown host: " + hostName );
+	    return false;
+	}
+	return true;
+    }
+
+    public void disconnect()
+    {
+	socket.close();
+    }
+
+    public boolean isConnected()
+    {
+	return ( hostIP != null );
+    }
+
+    public String receive()
+    {       
+	byte[] inBuffer = new byte[ MAX_MSG ];
+        DatagramPacket inPacket =
+            new DatagramPacket( inBuffer, MAX_MSG );
+	try {
+	    socket.receive( inPacket );
+	    hostPort = inPacket.getPort();
+	    return new String( inPacket.getData(),
+			       inPacket.getOffset(),
+			       inPacket.getLength() - 1 );
+	}
+	catch ( SocketTimeoutException e ) { // YL: check for server disconnect
+	    System.err.println( "Connection: server timeout: " + e );
+	    System.exit( -1 );
+	    return null;  // dummy
+	}
+	catch ( IOException e ) {
+	    System.err.println( "Connection: receive error: " + e );
+	    return null;
+	}
+    }
+
+    public boolean send( String msg )
+    {
+	//System.out.println( "Sending: " + msg );
+	msg += '\0';
+	DatagramPacket outPacket = 
+	    new DatagramPacket( msg.getBytes(), msg.length(),
+				hostIP, hostPort );
+	try {
+	    socket.send( outPacket );
+        } 
+	catch ( IOException e ) {
+	    System.err.println( "Connection: send error: " + e );
+	    return false;
+        }
+	return true;
+    }
+
+    // Testing purposes
+    public static void main( String[] args )
+    {
+	final int trainerPort = 6001;
+	final int supportedVersion = 9;
+
+	String reply;
+
+	// Open connection
+	Connection connection = 
+	    new Connection( "localhost", trainerPort );
+
+	// Send init
+	connection.send( "(init (version " + supportedVersion + "))" );
+	reply = connection.receive();
+	if ( !reply.equals( "(init ok)" ) ) {
+	    System.err.println( "Unable to init: " + reply );
+	    System.exit( 1 );
+	}
+
+	// Turn on senses
+	connection.send( "(eye on)" );
+
+	// Ball positions
+	int[] xPos = { -10, 10, 10, -10 };
+	int[] yPos = { -10, -10, 10, 10 };
+
+	// Infinite loop, CTRL-C to quit
+	int pos = 0;
+	while ( true ) {
+	    reply = connection.receive();
+	    System.out.println( reply );
+	    if ( reply.charAt( 1 ) == 's' &&
+		 reply.charAt( 3 ) == 'e' ) { // see_global
+		connection.send( "(move (ball) " + xPos[ pos ] + " " +
+				 yPos[ pos ] + ")" );
+		pos = ( pos + 1 ) % 4;
+	    }
+	}
+    }
+}

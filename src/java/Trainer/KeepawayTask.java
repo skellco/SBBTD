@@ -1,0 +1,456 @@
+import java.io.*;
+import java.util.*;
+import java.awt.Color;
+
+public class KeepawayTask implements Task, SoccerTypes
+{
+   final String trainingMsg = "fo ";
+   final int TURNOVER_TIME = 5;
+   final int KEEPER_POS_TIME = 2;
+   final int TAKER_POS_TIME = 2;
+
+   final double halfLength = 52.5;
+   final double halfWidth = 34;
+
+   ServerParams SP;
+   WorldState WS;
+   TrainerCommandHandler CMD;
+   int numKeepers;
+   int numTakers;
+   double kawayWidth;
+   double kawayLength;
+   BufferedWriter bw;
+   int epoch;
+   Random rand;
+   Rectangle region;
+
+   int[] timeWithKeeper;
+   int[] timeWithTaker;    
+
+   int catchTime = 2;
+
+   int takeTime;
+   int startTime;
+   double startX;
+   double endX;
+   Monitor monitor;
+   Vector shapes;
+   Set<Integer> keepers;
+   Set<Integer> takers;
+   Set<Integer> players;
+
+   public KeepawayTask( ServerParams sp,
+	 WorldState ws,
+	 TrainerCommandHandler cmd,
+	 boolean launchMonitor,
+	 int numKeepers,
+	 int numTakers,
+	 double width,
+	 double length,
+	 String kwyFile, int startEpisode )
+   {
+      SP = sp;
+      WS = ws;
+      CMD = cmd;
+
+      this.numKeepers = numKeepers;
+      this.numTakers = numTakers;
+      this.kawayWidth = width;
+      this.kawayLength = length;
+
+      timeWithKeeper = new int[numKeepers];
+      timeWithTaker = new int[numTakers];
+
+
+      if ( kwyFile != null ) {
+	 try {
+	    bw = new BufferedWriter( new FileWriter( kwyFile ) );
+	 }
+	 catch ( Exception e ) {
+	    System.err.println( "Unable to create .kwy file: " + e );
+	    bw = null;
+	 }
+      }
+
+      WS.newPlayerMessageHeard = false;
+
+      epoch = startEpisode;
+
+      rand = new Random();
+      region = new Rectangle(PITCH_WIDTH, PITCH_LENGTH / 2.0, new VecPosition(PITCH_LENGTH / 4.0, 0));
+
+      takeTime = 0;
+
+      keepers = new HashSet<Integer>();
+      for ( int i = 1; i <= numKeepers; i++ )
+	 keepers.add( Utils.getPlayerID( SIDE_LEFT, i ) );
+
+      takers = new HashSet<Integer>();
+      for ( int i = 1; i <= numTakers; i++ )
+	 takers.add( Utils.getPlayerID( SIDE_RIGHT, i ) );
+
+      players = new HashSet<Integer>();
+      players.addAll( keepers );
+      players.addAll( takers );
+
+      monitor = null;
+      shapes = null;
+      //if ( true ) {
+      //    MonitorParams mp = new MonitorParams();
+      //    mp.show_center_circle = true;
+      //    mp.show_middle_line = false;
+      //    monitor = new Monitor( mp, sp );
+      //    // draw keepaway region in monitor
+      //    shapes = new Vector<FieldShape>();
+      //    shapes.add( new FieldRect( Color.WHITE, false,
+      //                               region.getTopLeft(), region.getBottomRight(), 0 ) );
+      //}
+   }
+
+   public void init()
+   {
+      if ( bw != null )
+	 kwyHeader();
+      CMD.changeMode( PM_PlayOn );
+   }
+
+   private double getKwyLength()
+   {
+      return this.kawayLength;
+   }
+
+   private double getKwyWidth()
+   {
+      return this.kawayWidth;
+   }
+
+   private boolean isBallOutOfBounds()
+   {
+      VecPosition ballPos = WS.getBallPosition();
+      boolean outsideLine1, outsideLine2, outsideLine3, outsideLine4;
+      outsideLine1 = (ballPos.getX() < -getKwyLength() / 2.0);
+      outsideLine2 = (ballPos.getY() < -getKwyWidth() / 2.0);
+      outsideLine3 = (ballPos.getY() > getKwyWidth() / 2.0);
+      outsideLine4 = (ballPos.getX() > getKwyLength() / 2.0);
+
+      return (outsideLine1 || outsideLine2 || outsideLine3 || outsideLine4);
+   }
+
+   private boolean isBallWithKeeper(int index)//index 1..numKeepers
+   {
+      VecPosition keeperPos = WS.getPlayerPosition(Utils.getLeftPlayerID(index));
+      VecPosition ballPos = WS.getBallPosition();
+
+      return (keeperPos.getDistanceTo(ballPos) <= SP.kickable_margin + SP.player_size + SP.ball_size);
+   }
+
+   private boolean isBallWithTaker(int index)//index 1..numTakers;
+   {
+      VecPosition takerPos = WS.getPlayerPosition(Utils.getRightPlayerID(index));
+      VecPosition ballPos = WS.getBallPosition();
+
+      return (takerPos.getDistanceTo(ballPos) <= SP.kickable_margin + SP.player_size + SP.ball_size);
+   }
+
+   String makeSayMessage(String gameCondition, double state[], int numStates, int action)
+   {
+      String s = "*";
+      s += gameCondition;
+      s += " ";
+
+      //Sometimes state and action may be dummies
+      if((numStates <= 0) || (numStates > 50))//a maximum
+      {
+	 s += "*0 *0 *0";
+	 return s;
+      }
+
+
+      s += "*";
+      for(int i = 0; i < numStates; i++)
+      {
+	 s += (new Double(state[i])).toString();
+	 s += " ";
+      }
+
+      s += "*";
+      s += (new Integer(action)).toString();
+      s += " ";
+
+      double reward = 1.0;
+      s += "*";
+      s += (new Double(reward)).toString();
+      s += " ";
+
+      return s;
+   }
+
+   public boolean processCycle()
+   {
+      if ( monitor != null ) {
+	 monitor.update( WS, shapes );
+      }
+
+      String sayMessage;
+
+
+      if ( epoch == 0 )
+      {
+	 sayMessage = makeSayMessage("r", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);//anyway invalid
+	 broadcast(sayMessage);
+	 resetField();
+      }
+      else if(isBallOutOfBounds()) 
+      {
+	 if ( bw != null )
+	    kwyLogEpisode( 'o' );
+	 sayMessage = makeSayMessage("o", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+	 broadcast(sayMessage);
+	 resetField();	
+      }
+      else//Ball is in play 
+      {
+	 int kPos = 0;
+	 int tPos = 0;
+
+	 for(int i = 0; i < numKeepers; i++)
+	 {
+	    if(isBallWithKeeper(i + 1))
+	    {
+	       timeWithKeeper[i]++;
+	       kPos++;
+	    }
+	    else
+	       timeWithKeeper[i] = 0;
+	 }	
+
+	 for(int i = 0; i < numTakers; i++)
+	 {
+	    if(isBallWithTaker(i + 1))
+	    {
+	       timeWithTaker[i]++;
+	       tPos++;
+	    }	
+	    else
+	       timeWithTaker[i] = 0;
+	 }	
+
+	 if((kPos > 0) && (tPos > 0))
+	 {
+	    for(int i = 0; i < numKeepers; i++)
+	       timeWithKeeper[i] = 0;
+
+	    for(int i = 0; i < numTakers; i++)
+	       timeWithTaker[i] = 0;
+	 }
+	 else if(tPos > 0)
+	 {
+	    if(timeWithTaker[0] >= TAKER_POS_TIME)
+	    {
+	       if(bw != null)
+		  kwyLogEpisode('t');
+	       sayMessage = makeSayMessage("t0", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+	       broadcast(sayMessage);
+	       resetField();			
+	    }
+	    else if(timeWithTaker[1] >= TAKER_POS_TIME)
+	    {
+	       if(bw != null)
+		  kwyLogEpisode('t');
+	       sayMessage = makeSayMessage("t1", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+	       broadcast(sayMessage);
+	       resetField();			
+	    }
+	    else if(timeWithTaker[2] >= TAKER_POS_TIME)
+	    {
+	       if(bw != null)
+		  kwyLogEpisode('t');
+	       sayMessage = makeSayMessage("t2", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+	       broadcast(sayMessage);
+	       resetField();			
+	    }
+	    /*
+	       else if(timeWithTaker[3] >= TAKER_POS_TIME)
+	       {
+	       if(bw != null)
+	       kwyLogEpisode('t');
+	       sayMessage = makeSayMessage("t3", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+	       broadcast(sayMessage);
+	       resetField();			
+	       }
+	     */
+	 }
+	 else
+	    if(kPos > 0)
+	    {
+	       if(timeWithKeeper[0] >= KEEPER_POS_TIME)
+	       {
+		  sayMessage = makeSayMessage("k0", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+		  broadcast(sayMessage);
+	       }
+	       else if(timeWithKeeper[1] >= KEEPER_POS_TIME)
+	       {
+		  sayMessage = makeSayMessage("k1", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+		  broadcast(sayMessage);
+	       }
+	       else if(timeWithKeeper[2] >= KEEPER_POS_TIME)
+	       {
+		  sayMessage = makeSayMessage("k2", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+		  broadcast(sayMessage);
+	       }
+	       else if(timeWithKeeper[3] >= KEEPER_POS_TIME)
+	       {
+		  sayMessage = makeSayMessage("k3", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);
+		  broadcast(sayMessage);
+	       }	
+	    }
+      }	
+
+
+      // If I haven't seen one of the players in 500 cycles, quit.
+      for ( int id : players )
+	 if ( WS.getTimeSinceSeenPlayer( id ) > 500 )
+	    return false;
+
+
+      // If an episode lasts longer than 1:45, reset.
+      if ( WS.getTime() - startTime > 1050 )
+      {
+	 sayMessage = makeSayMessage("r", WS.lastPlayerState, WS.numStates, WS.lastPlayerAction);//anyway invalid
+	 broadcast(sayMessage);
+	 resetField();
+      }
+
+      return true;
+
+   }
+
+   private void broadcast(String s)
+   {
+      CMD.say(s);
+   }
+
+   private void resetField()//Assumed to be for 4 keepers and 5 takers
+   {
+      VecPosition pos;
+      double buffer = 2;
+      double ballBuffer = 4;
+
+      region = new Rectangle( region.getWidth(), region.getLength() );
+      if ( shapes != null ) {
+	 shapes.clear();
+	 shapes.add( new FieldRect( Color.WHITE, false,
+		  region.getTopLeft(), region.getBottomRight(), 0 ) );
+      }
+
+      int keeperPos = rand.nextInt(numKeepers);
+
+      double squareSide = 15.0;
+      VecPosition squareMid = new VecPosition(0, 0);
+
+      for ( int i = 1; i <= numKeepers; i++ ) {
+	 switch( keeperPos ) {
+
+	    case 0:
+	       pos = new VecPosition(squareMid.getX() - squareSide / 2.0, squareMid.getY() - squareSide / 2.0);//top left
+	       break;
+	    case 1:
+	       pos = new VecPosition(squareMid.getX() + squareSide / 2.0, squareMid.getY() - squareSide / 2.0);//top right
+	       break;
+	    case 2:
+	       pos = new VecPosition(squareMid.getX() + squareSide / 2.0, squareMid.getY() + squareSide / 2.0);//bottom right
+	       break;
+	    case 3:
+	       pos = new VecPosition(0, 0);//centre
+	       break;
+
+	    default:
+	       pos = new VecPosition(0, 0);
+	       break;
+	 }
+
+	 CMD.move( Utils.getLeftPlayerID( i ), pos );
+	 keeperPos = ( keeperPos + 1 ) % numKeepers;
+      }
+
+      pos = new VecPosition(squareMid.getX() - squareSide / 2.0, squareMid.getY() + squareSide / 2.0);//bottom left
+      for ( int i = 1; i <= numTakers; i++ )
+	 CMD.move( Utils.getRightPlayerID(i), pos );
+
+      //The ball
+      int ballDrop = rand.nextInt(numKeepers);
+      switch( ballDrop ) {
+	 case 0:
+	    pos = new VecPosition(squareMid.getX() - squareSide / 2.0 + rand.nextDouble() * 1.0, squareMid.getY() - squareSide / 2.0 + rand.nextDouble() * 1.0);//top left
+	    break;
+	 case 1:
+	    pos = new VecPosition(squareMid.getX() + squareSide / 2.0 + rand.nextDouble() * 1.0, squareMid.getY() - squareSide / 2.0 + rand.nextDouble() * 1.0);//top right
+	    break;
+	 case 2:
+	    pos = new VecPosition(squareMid.getX() + squareSide / 2.0 + rand.nextDouble() * 1.0, squareMid.getY() + squareSide / 2.0 + rand.nextDouble() * 1.0);//bottom right
+	    break;
+	 case 3:
+	    pos = new VecPosition(rand.nextDouble() * 1.0, rand.nextDouble() * 1.0);//center
+	    break;
+	 default:
+	    pos = new VecPosition(squareMid.getX() - squareSide / 2.0 + rand.nextDouble() * 1.0, squareMid.getY() - squareSide / 2.0 + rand.nextDouble() * 1.0);//top left
+	    break;
+      }
+
+      CMD.move( ID_BALL, pos, new VecPosition( 0, 0 ) );
+
+      takeTime = 0;
+      startTime = WS.getTime();
+
+      startX = pos.getX();
+
+      epoch++;
+
+      for(int i = 0; i < numKeepers; i++)
+	 timeWithKeeper[i] = 0;
+
+      for(int i = 0; i < numTakers; i++)
+	 timeWithTaker[i] = 0;
+
+   }
+
+   private void kwyHeader()
+   {
+      try {
+	 bw.write( "# Keepers: " + numKeepers + "\n" +
+	       "# Takers:  " + numTakers + "\n" );
+
+	 bw.write( "#\n");
+
+	 bw.write( "# Description of Fields:\n" +
+	       "# 1) Episode number\n" +
+	       "# 2) Start time in simulator steps / 100ms\n" +
+	       "# 3) End time in simulator steps / 100ms\n" +
+	       "# 4) Duration in simulator steps / 100ms\n" +
+	       "# 5) (g)oal scored / (o)ut of bounds \n" );
+
+	 bw.write( "#\n" );
+
+	 bw.flush();
+      }
+      catch ( Exception e ) {
+	 System.err.println( "Unable to write to kwy file: " + e );
+      }
+   }
+
+   private void kwyLogEpisode( char endCond )
+   {
+      try {
+	 bw.write( epoch + "\t" + 
+	       startTime + "\t" +
+	       WS.getTime() + "\t" +
+	       ( WS.getTime() - startTime ) + "\t" +
+	       endCond + "\n" );
+
+	 bw.flush();
+      }
+      catch ( Exception e ) {
+	 System.err.println( "Unable to write to kwy file: " + e );
+      }
+   }
+}

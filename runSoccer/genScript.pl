@@ -10,25 +10,23 @@ my $teamPow = 3;
 my $monolithic = 0;
 my $splitLevel = 0; #split-level transfer
 
-my $Msize = 8;
-my $pmd = 0.7;
-my $pma = 0.7;
-my $pmm = 0.2;
-my $pmn = 0.1;
+my $Msize = 180;
+my $pmd = 0.7;# 0.0
+my $pma = 0.7;# 0.0 
+my $pmm = 0.2;# 1.0
+my $pmn = 0.1;# 0.0
 my $omega = 30;
-my $t = 10;
-my $numLevels = 1;
-my $Mgap = 4;
+my $t = 60;
+my $numLevels = 2;
+my $Mgap = 90;
 
-my $episodesPerGeneration = 10;
+my $episodesPerGeneration = 5;
 
 my $maxProgSize = 96;
 my $pBidMutate = 1.0;
 my $pBidSwap = 1.0;
 my $pBidDelete = 0.5;
 my $pBidAdd = 0.5;
-
-my $statMod = 5;
 
 my $validPhaseEpochs = 25;
 my $testPhaseEpochs = 1000;
@@ -70,6 +68,8 @@ for($run = 0; $run < $numRuns; $run++)
     
     open(ARG, ">$argFile") || die "cannot open $argFile";
 
+    print ARG "adaptTask 0\n";
+    print ARG "taskPoint 0\n";
     print ARG "paretoEpsilonTeam $paretoEpsilonTeam\n";
     print ARG "teamPow $teamPow\n";
     print ARG "monolithic $monolithic\n";
@@ -92,9 +92,6 @@ for($run = 0; $run < $numRuns; $run++)
     print ARG "pBidSwap $pBidSwap\n";
     print ARG "pBidDelete $pBidDelete\n";
     print ARG "pBidAdd $pBidAdd\n";
-    print ARG "\n";
-
-    print ARG "statMod $statMod\n";
     print ARG "\n";
 
     print ARG "diversityMode $diversityMode\n";

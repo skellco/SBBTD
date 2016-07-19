@@ -377,12 +377,8 @@ int main (int argc, char* argv[])
                break;
             case 'l':
                str   = &argv[i+1][0];
-               levelStart = Parse::parseFirstInt( &str );
-               cout << "levelStart " << levelStart << endl;
-               break;
-            case 'L':
-               str   = &argv[i+1][0];
                levelPickup = Parse::parseFirstInt( &str );
+               levelStart = levelPickup;
                cout << "levelPickup " << levelPickup << endl;
                break;
             case 'O':
@@ -409,12 +405,8 @@ int main (int argc, char* argv[])
                break;
             case 't':
                str   = &argv[i+1][0];
-               tStart = Parse::parseFirstInt( &str );
-               cout << "tStart " << tStart << endl;
-               break;
-            case 'T':
-               str   = &argv[i+1][0];
                tPickup = Parse::parseFirstInt( &str );
+               tStart = tPickup;
                cout << "tPickup " << tPickup << endl;
                break;
             case 'V':
@@ -423,18 +415,17 @@ int main (int argc, char* argv[])
                cout << "visual " << visual << endl;
                break;
             case 'h':
-               cout << "Command Line Options:" << endl;
-               cout << "-C <mode to read checkpoint from> (default:off, requires -T and -L)" << endl;
-               cout << "Note on starting from checkpoint: if starting a new level, set -t <generation to start from in previous level (usually last gen)>" << "and -l <previous level>" << endl;
-               cout << "-f <hostFitnessMode>" << endl;
-               cout << "-H (invoke hierarchy imediately after reading in checkpoint)" << endl;
-               cout << "-l <level> (what level to start from OR playback policy is from)" << endl;
-               cout << "-L <pickup level> (default:0, requires -T and checkpoint file!)" << endl;
-               cout << "-O <statMod>" << endl;
-               cout << "-P <hostIdToReplay> (defualt:off)" << endl;
-               cout << "-t <t> (what generation to start from OR playback policy is from)" << endl;
-               cout << "-T <pickup generation> (default:1, requires -L and checkpoint file!)" << endl;
-               cout << "-V (visual)" << endl;
+               cout << endl << "Help" << endl << endl << "Command Line Options:" << endl << endl;
+               cout << "-C <mode to read checkpoint from> (Read a checkpoint created during TAIN_MODE:0, VALIDATION_MODE:1, or TEST_MODE:2. Requires checkpoint file and options -l, and -t.)" << endl;
+               cout << "-f <hostFitnessMode> (GameScore:0 Pillscore:1, Ghostscore:2)" << endl;
+               cout << "-H (Invoke hierarchy imediately after reading in checkpoint. Requires checkpoint file and options -C, -l, and -t.)" << endl;
+               cout << "-l <pickup level> (When loading populations form a checkpoint, 'pickup level' is the generation of the checkpoint file. Requires checkpoint file and options -C, and -t.)" << endl;
+               cout << "-O <statMod> (How often to calculate and print stats)" << endl;
+               cout << "-P <hostIdToReplay> (Load and replay a specific host ID. Requires checkpoint file and options -C, -l, and -t.)" << endl;
+               cout << "-p <port> (Port for communicating with game server.)" << endl;
+               cout << "-s <seed> (Random seed)" << endl;
+               cout << "-t <t> (When loading populations form a checkpoint, t is the generation of the checkpoint file. Requires checkpoint file and options -C, and -l.)" << endl;
+               cout << "-V (Run with visualization.)" << endl << endl;
                exit(0);
                break;
             default:

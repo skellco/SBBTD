@@ -1,0 +1,4 @@
+Import('env')
+
+env.Append(CPPPATH=['../sbbTD/'])
+env.Program('exp_robocup', ['exp_robocup.cc','Parse.cc'], LIBS=['sbbTD','bz2'], LIBPATH=['../sbbTD','/lib/x86_64-linux-gnu/'])

@@ -1,0 +1,100 @@
+KWYType6Keeper.cc:		SA->update(lastState, lastAction, reward, 1.0);//multiplier a dummy.
+KWYType6Keeper.cc:		SA->endEpisode();
+KWYType6Keeper.cc:	SA->update(lastState, lastAction, reward, 1.0);
+KWYType6Keeper.cc:      		action = SA->selectAction(state);
+SGType1_2_1_1Keeper.cc:		SA->update(state, action, reward, 1.0);
+SGType1_2_1_1Keeper.cc:  	SA->endEpisode();
+SGType1_2_1_1Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType1_2_1_1Keeper.cc:				myAction = SA->bestAction(state);
+SGType1_2_1_1Keeper.cc:					double QMyAction = SA->computeQ(state, myAction);
+SGType1_2_1_1Keeper.cc:					double QSuggestedAction = SA->computeQ(state, suggestedAction);
+SGType1_2_1_1Keeper.cc:			action = SA->selectAction(state);
+SGType1_2_1_1Keeper.cc:			//if(action != SA->bestAction(state))
+SGType1_2_2Keeper.cc:		SA->update(state, action, reward, 1.0);
+SGType1_2_2Keeper.cc:  	SA->endEpisode();
+SGType1_2_2Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType1_2_2Keeper.cc:				myAction = SA->bestAction(state);
+SGType1_2_2Keeper.cc:					double QMyAction = SA->computeQ(state, myAction);
+SGType1_2_2Keeper.cc:					double QSuggestedAction = SA->computeQ(state, suggestedAction);
+SGType1_2_2Keeper.cc:			action = SA->selectAction(state);
+SGType1_2_2Keeper.cc:			//if(action != SA->bestAction(state))
+SGType1_3_1Keeper.cc:		SA->update(state, action, reward, 1.0);
+SGType1_3_1Keeper.cc:  	SA->endEpisode();
+SGType1_3_1Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType1_3_1Keeper.cc:				myAction = SA->bestAction(state);
+SGType1_3_1Keeper.cc:					double QMyAction = SA->computeQ(state, myAction);
+SGType1_3_1Keeper.cc:					double QSuggestedAction = SA->computeQ(state, suggestedAction);
+SGType1_3_1Keeper.cc:			action = SA->selectAction(state);
+SGType1_3_1Keeper.cc:			//if(action != SA->bestAction(state))
+SGType1Keeper.cc:		SA->update(state, action, reward, 1.0);
+SGType1Keeper.cc:  	SA->endEpisode();
+SGType1Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType1Keeper.cc:				myAction = SA->bestAction(state);
+SGType1Keeper.cc:					double QMyAction = SA->computeQ(state, myAction);
+SGType1Keeper.cc:					double QSuggestedAction = SA->computeQ(state, suggestedAction);
+SGType1Keeper.cc:			action = SA->selectAction(state);
+SGType1Keeper.cc:			//if(action != SA->bestAction(state))
+SGType2Keeper.cc:				SA->update(lastState, lastAction, goalReward, 1.0);
+SGType2Keeper.cc:				SA->update(lastState, lastAction, ballTakenReward, 1.0);
+SGType2Keeper.cc:				SA->update(lastState, lastAction, ballOutOfPlayReward, 1.0);
+SGType2Keeper.cc:				SA->update(lastState, lastAction, goalieCatchReward, 1.0);
+SGType2Keeper.cc:  	SA->endEpisode();
+SGType2Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType2Keeper.cc:			SA->update(lastState, lastAction, passReward, 1.0);
+SGType2Keeper.cc:		lastAction = SA->argmaxQ(lastState);
+SGType2Keeper.cc:      		action = SA->selectAction(state);
+SGType2Keeper.cc:		SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:				SA->update(lastState, lastAction, goalReward, 1.0);
+SGType3Keeper.cc:				SA->endEpisode();
+SGType3Keeper.cc:					SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:					SA->update(state, action, 0, 1.0);//This reward is a dummy; it can be arbitrary
+SGType3Keeper.cc:					SA->endEpisode();
+SGType3Keeper.cc:					SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:					SA->update(state, action, 0, 1.0);//This reward is a dummy; it can be arbitrary
+SGType3Keeper.cc:					SA->endEpisode();
+SGType3Keeper.cc:					SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:					SA->update(state, action, 0, 1.0);//This reward is a dummy; it can be arbitrary
+SGType3Keeper.cc:					SA->endEpisode();
+SGType3Keeper.cc:					SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:					SA->update(state, action, 0, 1.0);//This reward is a dummy; it can be arbitrary
+SGType3Keeper.cc:					SA->endEpisode();
+SGType3Keeper.cc:				SA->update(lastState, lastAction, ballTakenReward, 1.0);
+SGType3Keeper.cc:				SA->endEpisode();
+SGType3Keeper.cc:				SA->update(lastState, lastAction, ballOutOfPlayReward, 1.0);
+SGType3Keeper.cc:				SA->endEpisode();
+SGType3Keeper.cc:				SA->update(lastState, lastAction, goalieCatchReward, 1.0);
+SGType3Keeper.cc:				SA->endEpisode();
+SGType3Keeper.cc:  	SA->endEpisode();
+SGType3Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType3Keeper.cc:      		action = SA->selectAction(state);
+SGType3Keeper.cc:		SA->update(lastState, lastAction, passReward, 1.0);
+SGType3Keeper.cc:		SA->update(state, action, 0, 1.0);//This reward is a dummy; it can be arbitrary
+SGType3Keeper.cc:		SA->endEpisode();
+SGType4Keeper.cc:				SA->update(lastState, lastAction, goalReward, 1.0);
+SGType4Keeper.cc:				SA->endEpisode();
+SGType4Keeper.cc:				SA->update(lastState, lastAction, ballTakenReward, 1.0);
+SGType4Keeper.cc:				SA->endEpisode();
+SGType4Keeper.cc:				SA->update(lastState, lastAction, ballOutOfPlayReward, 1.0);
+SGType4Keeper.cc:				SA->endEpisode();
+SGType4Keeper.cc:				SA->update(lastState, lastAction, goalieCatchReward, 1.0);
+SGType4Keeper.cc:				SA->endEpisode();
+SGType4Keeper.cc:  	SA->endEpisode();
+SGType4Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType4Keeper.cc:			SA->update(lastState, lastAction, passReward, 1.0);
+SGType4Keeper.cc:			lastAction = SA->argmaxQ(lastState);
+SGType4Keeper.cc:			SA->update(lastState, lastAction, 0, 1.0);//The reward is a dummy; it can be arbitrary
+SGType4Keeper.cc:			SA->endEpisode();
+SGType4Keeper.cc:      		action = SA->selectAction(state);
+SGType4Keeper.cc:		SA->update(lastState, lastAction, passReward, 1.0);
+SGType4Keeper.cc:		SA->update(state, action, 0, 1.0);//The reward 0 is a dummy; it can be arbitrary
+SGType4Keeper.cc:		SA->endEpisode();
+SGType5Keeper.cc:		SA->update(lastState, lastAction, currentReward, multiplier);//multiplier a dummy.
+SGType5Keeper.cc:		SA->endEpisode();
+SGType5Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType5Keeper.cc:	SA->update(lastState, lastAction, currentReward, multiplier);
+SGType5Keeper.cc:      		action = SA->selectAction(state);
+SGType6Keeper.cc:		SA->update(lastState, lastAction, currentReward, 1.0);//multiplier a dummy.
+SGType6Keeper.cc:		SA->endEpisode();
+SGType6Keeper.cc:		SA->saveWeights(m_dumpWeightsFile);
+SGType6Keeper.cc:  	SA->update(lastState, lastAction, currentReward, 1.0);
+SGType6Keeper.cc:		action = SA->selectAction(state);

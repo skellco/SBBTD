@@ -1,0 +1,29 @@
+rcssserver-15.2.2
+
+Copyright (C) 1995, 1996, 1997, 1998, 1999 Electrotechnical Laboratory.
+2000 - RoboCup Soccer Simulator Maintenance Group.
+
+Simulator Random Seed: 1428865053
+CSVSaver: Ready
+STDOutSaver: Ready
+Using simulator's random seed as Hetero Player Seed: 1428865053
+wind factor: rand: 0.000000, vector: (0.000000, 0.000000)
+
+Hit CTRL-C to exit
+A new (v9) player (Offense 1) connected.
+A new (v9) player (Offense 2) connected.
+A new (v9) player (Offense 3) connected.
+A new (v9) player (Offense 4) connected.
+A new (v9) player (Defense 1) connected.
+A new (v9) player (Defense 2) connected.
+A new (v9) player (Defense 3) connected.
+A new (v9) player (Defense 4) connected.
+A new (v8) offline coach connected
+A player disconnected : (Defense 4)
+A player disconnected : (Offense 3)
+A player disconnected : (Offense 4)
+A player disconnected : (Offense 1)
+A player disconnected : (Offense 2)
+A player disconnected : (Defense 3)
+A player disconnected : (Defense 1)
+A player disconnected : (Defense 2)

@@ -1,0 +1,135 @@
+public class Trainer implements SoccerTypes
+{
+    ServerParams SP;
+    WorldState WS;
+    TrainerCommandHandler CMD;
+    Connection C;
+    RCSSParser parser;
+    Task task;
+
+    public Trainer( ServerParams sp, WorldState ws,
+		    Connection c,
+		    TrainerCommandHandler cmd,
+		    RCSSParser parser,
+		    Task task )
+    {
+	SP = sp;
+	WS = ws;
+	C = c;
+	CMD = cmd;
+        this.parser = parser;
+	this.task = task;
+    }
+
+    public void mainLoop() 
+    {
+	final double version = 8.0;
+	String reply;
+
+	CMD.init( version );
+	reply = C.receive();
+	if ( !reply.equals( "(init ok)" ) ) {
+	    System.err.println( "Unable to init: " + reply );
+	    System.exit( 1 );
+	}
+	
+	CMD.eye( true );
+
+	task.init();
+
+	int time = 0;
+	while ( true ) {
+	    reply = C.receive();
+	    //System.out.println( reply );
+	    parser.analyzeMessage( reply );
+	    if ( WS.getTime() > time ) {
+		time = WS.getTime();
+		task.processCycle();
+		if ( SP.synch_mode == 1 )
+		    CMD.done();
+	    }
+	    if ( WS.getPlayMode() == PM_TimeOver )
+		break;
+	}
+
+	C.disconnect();
+	System.out.println( "Shutting down trainer." );
+    }
+
+    public static void main( String[] args )
+    {
+	String hostName = "localhost";
+	int trainerPort = 5801;
+	boolean launchMonitor = false;
+
+	int numKeepers = 3;
+	int numTakers = 2;
+	double kawayWidth = 20;
+	double kawayLength = 20;
+	boolean bounce = false;
+	double elasticity = 1.0;
+	boolean torus = false;
+	double moveSpeed = 0;
+	String kwyFile = null;
+
+	try {
+	    for ( int i = 0; i < args.length; i += 2 ) {
+		if ( args[ i ].equals( "-host" ) ) {
+		    hostName = args[ i + 1 ];
+		}
+		else if ( args[ i ].equals( "-port" ) ) {
+		    trainerPort = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-monitor" ) ) {
+		    launchMonitor = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-keepers" ) ) {
+		    numKeepers = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-takers" ) ) {
+		    numTakers = Integer.parseInt( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-width" ) ) {
+		    kawayWidth = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-length" ) ) {
+		    kawayLength = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-bounce" ) ) {
+		    bounce = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-elasticity" ) ) {
+		    elasticity = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-torus" ) ) {
+		    torus = args[ i + 1 ].equals( "1" );
+		}
+		else if ( args[ i ].equals( "-move_speed" ) ) {
+		    moveSpeed = Double.parseDouble( args[ i + 1 ] );
+		}
+		else if ( args[ i ].equals( "-kwy" ) ) {
+		    kwyFile = args[ i + 1 ];
+		}
+		else {
+		    System.err.println( "Unknown option: " + args[ i ] );
+		}
+	    }
+	}
+	catch ( Exception e ) {
+	    System.err.println( "Unable to parse commandline options: " + e );
+	    System.exit( 1 );
+	}
+
+	ServerParams sp = new ServerParams();
+	WorldState ws = new WorldState( sp );
+	Connection c = new Connection( hostName, trainerPort );
+	TrainerCommandHandler cmd = new TrainerCommandHandler( c, ws );
+	RCSSParser parser = new RCSSParser( ws, sp );
+	Task task = new ForwardTask( sp, ws, cmd, launchMonitor,
+				      numKeepers, numTakers,
+				      kawayWidth, kawayLength,
+				      kwyFile );
+	Trainer trainer = new Trainer( sp, ws, c, cmd, parser, task );
+	trainer.mainLoop();
+    }
+}

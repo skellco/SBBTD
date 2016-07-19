@@ -14,7 +14,7 @@ sleep 3
 # start sbb ###################################################
 
 #from scratch
-../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -V -s $r -p $r -O 5 -f 0 1> sbb.$r.std 2> sbb.$r.err &
+../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $r -p $r -O 5 -f 1 1> sbb.$r.std 2> sbb.$r.err &
 
 #continuation without new level
 #../build/release/mspacmanSBBAgent/mspacmanSBBAgent -V -s $r -O 5 -C 0 -T 110 -L 0 -t 110 -l 0 1> sbb.$r.std 2> sbb.$r.err &

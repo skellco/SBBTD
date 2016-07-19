@@ -1,0 +1,284 @@
+import java.io.*;
+import java.util.*;
+import java.awt.Color;
+
+public class ForwardTask implements Task, SoccerTypes
+{
+    final String trainingMsg = "fo ";
+    final int TURNOVER_TIME = 4;
+
+    final double halfLength = 52.5;
+    final double halfWidth = 34;
+
+    ServerParams SP;
+    WorldState WS;
+    TrainerCommandHandler CMD;
+    int numKeepers;
+    int numTakers;
+    double kawayWidth;
+    double kawayLength;
+    BufferedWriter bw;
+    int epoch;
+    Random rand;
+    Rectangle region;
+    int takeTime;
+    int startTime;
+    double startX;
+    double endX;
+    Monitor monitor;
+    Vector shapes;
+    Set<Integer> keepers;
+    Set<Integer> takers;
+    Set<Integer> players;
+
+    public ForwardTask( ServerParams sp,
+			WorldState ws,
+			TrainerCommandHandler cmd,
+			boolean launchMonitor,
+			int numKeepers,
+			int numTakers,
+			double kawayWidth,
+			double kawayLength,
+			String kwyFile )
+    {
+	SP = sp;
+	WS = ws;
+	CMD = cmd;
+
+	this.numKeepers = numKeepers;
+	this.numTakers = numTakers;
+	this.kawayWidth = kawayWidth;
+	this.kawayLength = kawayLength;
+
+	if ( kwyFile != null ) {
+	    try {
+		bw = new BufferedWriter( new FileWriter( kwyFile ) );
+	    }
+	    catch ( Exception e ) {
+		System.err.println( "Unable to create .kwy file: " + e );
+		bw = null;
+	    }
+	}
+
+	epoch = 0;
+	rand = new Random();
+	VecPosition myCenter = new VecPosition(halfLength - kawayLength/2, 0);
+	region = new Rectangle( kawayWidth, kawayLength, myCenter );
+	takeTime = 0;
+
+	keepers = new HashSet<Integer>();
+	for ( int i = 1; i <= numKeepers; i++ )
+	    keepers.add( Utils.getPlayerID( SIDE_LEFT, i ) );
+	takers = new HashSet<Integer>();
+	for ( int i = 1; i <= numTakers; i++ )
+	    takers.add( Utils.getPlayerID( SIDE_RIGHT, i ) );
+	players = new HashSet<Integer>();
+	players.addAll( keepers );
+	players.addAll( takers );
+
+	monitor = null;
+	shapes = null;
+	if ( launchMonitor ) {
+	    MonitorParams mp = new MonitorParams();
+	    mp.show_center_circle = true;
+	    mp.show_middle_line = true;
+	    monitor = new Monitor( mp, sp );
+	    // draw keepaway region in monitor
+	    shapes = new Vector();
+	    shapes.add( new FieldRect( Color.WHITE, false,
+				       region.getTopLeft(), region.getBottomRight(), 0 ) );
+	}
+    }
+
+    public void setMonitorParams( MonitorParams mp )
+    {
+	mp.show_center_circle = true;
+	mp.show_middle_line = true;
+    }
+
+    public void init()
+    {
+	if ( bw != null )
+	    kwyHeader();
+	CMD.changeMode( PM_PlayOn );
+    }
+
+    private boolean isGoal()
+    {
+	VecPosition ballPosition = WS.getBallPosition();
+
+	return ( ballPosition.getX() >= region.getTopX() &&
+		 Math.abs( ballPosition.getY() ) <= SP.goal_width / 2 );
+    }
+
+    public boolean processCycle()
+    {
+	if ( monitor != null ) {
+	    monitor.update( WS, shapes );
+	}
+
+	if ( epoch == 0 ) {
+	    resetField();
+	}
+	else if ( !region.isInside( WS.getBallPosition() ) ) {
+	    if ( bw != null ) {
+		if ( isGoal() ) 
+		    kwyLogEpisode( 1, 'o' );
+		else 
+		    kwyLogEpisode( 0, 'o' );
+	    }
+	    resetField();
+	}
+	else if ( takeTime >= TURNOVER_TIME ) {
+	    if ( bw != null )
+		kwyLogEpisode( 0, 't' );
+	    resetField();
+	}
+	else {
+	    boolean keeperPoss = false;
+	    for ( int i = 1; i <= numKeepers; i++ ) {
+		int id = Utils.getLeftPlayerID( i );
+		if ( WS.isBallKickableBy( id ) ) {
+		    keeperPoss = true;
+		    endX = WS.getBallPosition().getX();
+		    break;
+		}
+	    }
+	    
+	    boolean takerPoss = false;
+	    for ( int i = 1; i <= numTakers; i++ ) {
+		int id = Utils.getRightPlayerID( i );
+		if ( WS.isBallKickableBy( id ) ) {
+		    takerPoss = true;
+		    break;
+		}
+	    }
+	    
+	    if ( takerPoss && !keeperPoss ) {
+		    takeTime++;
+	    }
+	    else {
+		takeTime = 0;
+	    }
+	}	    
+
+	// If I haven't seen one of the players in 50 cycles, quit.
+	for ( int id : players )
+	    if ( WS.getTimeSinceSeenPlayer( id ) > 50 )
+		return false;
+
+	// If an episode lasts longer than 1:45, quit.
+	if ( WS.getTime() - startTime > 1050 )
+	    return false;
+
+	return true;
+    }
+
+    private void resetField()
+    {
+	VecPosition pos;
+	double buffer = 2;
+	double ballBuffer = 4;
+	int keeperPos = rand.nextInt( numKeepers );
+
+	//	region = new Rectangle( region.getWidth(), region.getLength() );
+	if ( shapes != null ) {
+	    shapes.clear();
+	    shapes.add( new FieldRect( Color.WHITE, false,
+				       region.getTopLeft(), region.getBottomRight(), 0 ) );
+	}
+
+	double regionWidth = region.getWidth();
+	for ( int i = 1; i <= numKeepers; i++ ) {
+	    switch( keeperPos ) {
+	    case 0:
+		pos = region.getBottomLeft().add( buffer );
+		break;
+	    case 1:
+		pos = region.getBottomRight().add( new VecPosition( buffer, -buffer ) );
+//		pos = region.getTopLeft().add( new VecPosition( -buffer, buffer ) );
+		break;
+	    case 2:
+//		pos = region.getTopRight().subtract( buffer );
+		pos = region.getBottomSide().getMidpoint().add( new VecPosition(buffer, 0) );
+		break;
+	    default:
+		pos = region.getBottomSide().getMidpoint().add( new VecPosition( buffer, ( rand.nextDouble() - 0.5 ) * regionWidth ) );
+//		pos = region.getCenter().add( rand.nextGaussian() );
+		break;
+	    }
+	    
+	    CMD.move( Utils.getLeftPlayerID( i ), pos );
+	    keeperPos = ( keeperPos + 1 ) % numKeepers;
+	}
+
+	for ( int i = 1; i <= numTakers; i++ ) {
+//	    pos = region.getBottomRight().add( new VecPosition( buffer, -buffer ) );
+//	    pos = pos.add( rand.nextGaussian() );
+	    pos = region.getTopRight().add( new VecPosition( -buffer, -buffer ) );
+	    pos = pos.add( new VecPosition( 0, - rand.nextDouble() * regionWidth ) );
+	    CMD.move( Utils.getRightPlayerID( i ), pos );
+	}
+
+	pos = region.getBottomLeft().add( ballBuffer );
+	CMD.move( ID_BALL, pos, new VecPosition( 0, 0 ) );
+
+	takeTime = 0;
+	startTime = WS.getTime();
+
+	startX = pos.getX();
+
+	epoch++;
+
+	//moveSpeed = 0.3 * rand.nextGaussian();
+	//	CMD.say( trainingMsg + moveSpeed );
+	CMD.say( trainingMsg );
+    }
+
+    private void kwyHeader()
+    {
+	try {
+	    bw.write( "# Keepers: " + numKeepers + "\n" +
+		      "# Takers:  " + numTakers + "\n" +
+		      "# Region:  " + kawayLength +
+		      " x " + kawayWidth + "\n" );
+	    
+	    bw.write( "#\n");
+	    
+	    bw.write( "# Description of Fields:\n" +
+		      "# 1) Episode number\n" +
+		      "# 2) Start time in simulator steps (100ms)\n" +
+		      "# 3) End time in simulator steps (100ms)\n" +
+		      "# 4) Duration in simulator steps (100ms)\n" +
+		      "# 5) X distance traveled (1m)\n" +
+		      "# 6) Goals scored\n" +
+		      "# 7) (o)ut of bounds / (t)aken away\n" );
+
+	    bw.write( "#\n" );
+
+	    bw.flush();
+	}
+	catch ( Exception e ) {
+	    System.err.println( "Unable to write to kwy file: " + e );
+	}
+    }
+
+    private void kwyLogEpisode( int goalCond, char endCond )
+    {
+	try {
+	    bw.write( epoch + "\t" + 
+		      startTime + "\t" +
+		      WS.getTime() + "\t" +
+		      ( WS.getTime() - startTime ) + "\t" +
+		      ( WS.getBallPosition().getX() - startX ) + "\t" +
+//		      ( endX - startX ) + "\t" +
+		      goalCond + "\t" +
+		      endCond + "\n" );
+
+	    bw.flush();
+	}
+	catch ( Exception e ) {
+	    System.err.println( "Unable to write to kwy file: " + e );
+	}
+    }
+}

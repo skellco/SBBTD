@@ -1,0 +1,16 @@
+#!/bin/sh
+rm checkpoints/* 
+rm evals/* 
+rm run_share/* 
+rm -rf player_outs 
+rm sbb.* 
+rm sarsa.*
+rm server_* 
+rm core* 
+rm -rf logs
+rm sarsa_weights/* 
+rm GE_Logs_err/* 
+rm GE_Logs_std/* 
+rm trainer_out 
+rm interactive/*
+rm trainer-*
