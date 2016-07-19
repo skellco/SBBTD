@@ -4,9 +4,9 @@ reinforcement learning tasks, with additional support for transfer learning and 
 
 This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. Animations of behaviours in each domain, which illustrate how the modular GP strategies support decision making during gameplay, can be viewed at the following links:
 
-Half Field Offense: https://www.youtube.com/watch?v=LXYFLU1RAqE
+Half Field Offense: https://youtu.be/ZPqa-m0x4so
 
-Ms. Pac-Man: https://www.youtube.com/watch?v=xRt0AVn5HlI
+Ms. Pac-Man: https://youtu.be/xRt0AVn5HlI
 
 For instructions on how to run this code, see TUTORIAL.txt. 
 
