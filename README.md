@@ -1,4 +1,6 @@
-﻿Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
+﻿UPDATE July 19, 2016: This distribution now includes both task domains: Half Field Offense and Ms. Pacman. The TUTORIAL.txt file is being rewritten accordingly
+
+Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
 of simple programs. SBBTD is an extension of the original c++ code for 
 reinforcement learning tasks, with additional support for transfer learning and task-agnostic diversity mechanisms.
 
