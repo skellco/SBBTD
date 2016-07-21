@@ -1821,12 +1821,6 @@ void sbbTD::setParams()
 
    if(_teamPow < 1)
       die(__FILE__, __FUNCTION__, __LINE__, "bad arg teamPow < 1");
-
-   /* Bidding behaviour. */
-   while(_profilePoints.size() < PROFILE_SIZE_INI)
-      _profilePoints.push_back(initUniformPointGeneric(-3, _dim, point_count++, VALIDATION_PHASE));
-   while(_profilePointsFIFO.size() < PROFILE_SIZE_INI)
-      _profilePointsFIFO.push_back(initUniformPointGeneric(-3, _dim, point_count++, VALIDATION_PHASE));
 }
 
 /*********************************************************************************************************/

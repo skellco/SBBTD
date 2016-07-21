@@ -542,10 +542,15 @@ cout << " BB " << endl;
          timeGenSec1 = time(NULL);
          cout << "sbb::genTime t " << t  << " sec " << timeGenSec1 - timeGenSec0 << " (" << timeGenTotalInGame << " InGame, ";
          cout << timeGenTeams << " genTeams, " << timeSelTeams << " selTeams, " << timeCleanup << " cleanup)" << endl;
-         if (t == tStart+1 || t % statMod == 0 || t == sbbMain.t())
+         if (t == tStart+1 || t % statMod == 0 || t == sbbMain.t()){
+cout << "Running stats... " << endl;
             sbbMain.stats(t, level);
+cout << "Done stats." << endl;
+         }
       }
+cout << "Finalizing..." << endl;
       sbbMain.finalize();
+cout << "done Finalizing" << endl;
       initialize = true;
    }
    sbbMain.finalfinalize();
