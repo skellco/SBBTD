@@ -16,8 +16,8 @@ my $pma = 0.7;
 my $pmm = 0.2;
 my $pmn = 0.1;
 my $omega = 30;
-my $t = 10;
-my $numLevels = 1;
+my $t = 3;
+my $numLevels = 2;
 my $Mgap = 4;
 
 my $episodesPerGeneration = 10;

@@ -351,7 +351,7 @@ int main (int argc, char* argv[])
 
    // read in all the command options and change the associated variables
    // assume every two values supplied at prompt, form a duo
-   cout << "mspacmanSBBAgent parameters:" << endl;
+   cout << "mspacmanSBBAgent parameters:" << endl << endl;
    char * str;
    for( int i = 1 ; i < argc ; i = i + 1  )
    {
@@ -498,6 +498,8 @@ int main (int argc, char* argv[])
          return 0;
       }
 
+      cout << "Read the checkpoint and such..." << endl;
+
       initialize = false; //can skip initialization for current level
       //starting a new level
       if (startNewLevel)
@@ -511,6 +513,7 @@ int main (int argc, char* argv[])
    //hierarchical training loop
    for (int level = levelStart; level < sbbMain.numLevels(); level++)
    {
+      cout << "Starting level " << level << endl;
       if (initialize == true){
          timeTemp = time(NULL);
          sbbMain.initTeams(level);
@@ -520,10 +523,13 @@ int main (int argc, char* argv[])
       phase = TRAIN_PHASE;
       for (int t = tStart+1; t <= sbbMain.t(); t++)
       {
+         cout << "Starting generation " << t << endl;
          timeGenSec0 = time(NULL);
          timeGenTotalInGame = 0;
          timeTemp = time(NULL); sbbMain.genTeams(t, level); timeGenTeams = time(NULL) - timeTemp; //replacement
+cout << " AA " << endl;
          runEval(policyAnimator,mspacmanServer,sbbMain,t,level,phase,visual,timeGenTotalInGame,-1);
+cout << " BB " << endl;
          sbbMain.hostDistanceMode(drand48() > 0.5 ? 1 : 0); //diversity switching
          sbbMain.hostFitnessMode(hostFitnessMode);
          mspacmanServer.send("sleep");
