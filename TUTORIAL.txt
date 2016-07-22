@@ -1,17 +1,16 @@
-=== INTRODUCTION ==============================
+﻿=== INTRODUCTION ==============================
 
-This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. This distribution includes a generic learning algorithm and interfaces for both task domains.
+This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man.
+The current distribution includes a generic learning algorithm and interfaces for both task domains.
 
 === DEPENDENCIES ==============================
 
-This code was developed under Ubuntu Linux, and should work on other Linux or Unix variants.
+Operating system: Linux or Unix variant recommended.
 
 The following software is required by the SBB learning algorithm:
 
-	scons
-	make 
+	scons	 
 	g++ 
-	jdk
 	libbz2-dev
 
 Additional software for task domains:
@@ -22,6 +21,7 @@ RoboCup only:
 
 	rcssserver-15.2.2 https://sourceforge.net/projects/sserver/files/rcssserver/
 	rcssmonitor https://sourceforge.net/projects/sserver/files/rcssmonitor/
+	make
 	boost
 	flex
 	bison (bison 2.7 version required)
@@ -33,5 +33,70 @@ After installing dependencis, navigate to the main SBBTD directory and type:
 	scons
 
 === RUNNING EXPERIMENTS =======================
+
+These instructions will reproduce experiments detailed in a report that is currently under review for publication. 
+The tutorial will be fleshed out with further details and references to that report once it is published. 
+
+In each domain, the best experimental case (in terms of gameplay and model complexity) incorporated both 
+transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in 
+each domain are linked in the README.md file. The following steps will produce similar results. 
+
+Note that each experiment required roughly 2.5 weeks to complete on a machine with 24 CPUs @ 2.4GHz.
+
+First, navigate to the root SBBTD directory and set the SBBTDPATH environment variable:
+
+	export SBBTDPATH=`pwd`
+
+=== Ms. Pac-Man ===
+
+1. Evolve 10 source populations in each subtask (steps 1a and 1b can run in parallel if you have enough CPUs):
+
+1a. Ghostscore task:
+
+	cd $SBBTDPATH
+      	cp -r runPacman mspacman-ghostscore
+	cd mspacman-ghostscore
+	for i in `seq 7100 100 8000`; do ./mspacman-runner.sh $i 0; done
+
+1b. Pillscore task:
+
+	cd $SBBTDPATH
+      	cp -r runPacman mspacman-pillscore
+	cd mspacman-pillscore
+	for i in `seq 8100 100 9000`; do ./mspacman-runner.sh $i 1; done
+
+
+2. Compile and filter source task populations.
+
+	$SBBTDPATH/scripts/compileAndFilterSourceTaskPops.sh
+
+3. Evolve 10 target task populations:
+	
+	cd $SBBTDPATH/runPacman
+	for i in `seq 7100 100 8000`; do ./mspacman-runner.sh $i 2; done
+
+4. Run Test:
+
+	cd $SBBTDPATH/runPacman
+	$SBBTDPATH/scripts/getPacmanTestTeams.sh
+        for i in `seq 7100 100 8000`; do ./mspacman-runner-test.sh $i GamescoreTestTeams 100; done
+
+5. Print test results:
+
+	cd $SBBTDPATH/runPacman
+	$SBBTDPATH/scripts/getPacmanTestResults.sh 1 7100 8000 100
+	
+
+	
+
+      
+	
+	
+
+	
+
+	
+
+
 
 
