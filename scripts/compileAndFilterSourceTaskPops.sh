@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ ! -d "$SBBTDPATH/data" ]; then mkdir $SBBTDPATH/data; 
-else rm -rf $SBBTDPATH/data
+else rm -rf $SBBTDPATH/data/*
 fi
 
 cd $SBBTDPATH/mspacman-ghostscore

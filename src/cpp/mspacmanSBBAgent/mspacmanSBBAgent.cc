@@ -337,6 +337,7 @@ int main (int argc, char* argv[])
    int hostToReplay;
    int levelPickup;
    int levelStart = 0;
+   int numLevels = 1;
    int phase = TRAIN_PHASE;
    int port;
    long prevF = 0;
@@ -374,6 +375,11 @@ int main (int argc, char* argv[])
             case 'H':
                startNewLevel = true;
                cout << "startNewLevel " << startNewLevel << endl;
+               break;
+            case 'L':
+               str   = &argv[i+1][0];
+               numLevels = Parse::parseFirstInt( &str );
+               cout << "numLevels " << numLevels << endl;
                break;
             case 'l':
                str   = &argv[i+1][0];
@@ -459,6 +465,7 @@ int main (int argc, char* argv[])
 
    //SBB Parameter Setup
    sbbMain.id(-1);
+   sbbMain.numLevels(numLevels);
    sbbMain.seed(seed); 
    sbbMain.dim(SBB_DIM); 
    sbbMain.setParams(); 

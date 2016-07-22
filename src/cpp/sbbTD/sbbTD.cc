@@ -1658,11 +1658,6 @@ void sbbTD::setParams()
 
    _t = stringToLong(maiter->second);
 
-   if((maiter = args.find("numLevels")) == args.end())
-      die(__FILE__, __FUNCTION__, __LINE__, "cannot find arg numLevels");
-
-   _numLevels = stringToInt(maiter->second);
-
    if((maiter = args.find("Mgap")) == args.end())
       die(__FILE__, __FUNCTION__, __LINE__, "cannot find arg Mgap");
 
