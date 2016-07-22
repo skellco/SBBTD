@@ -1,6 +1,7 @@
 ﻿=== INTRODUCTION ==============================
 
-This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man. The current distribution includes a generic learning algorithm and interfaces for both task domains.
+This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man.
+The current distribution includes a generic learning algorithm and interfaces for both task domains.
 
 === DEPENDENCIES ==============================
 
@@ -35,7 +36,9 @@ After installing dependencis, navigate to the main SBBTD directory and type:
 
 These instructions will reproduce experiments detailed in a report that is currently under review for publication. The tutorial will be fleshed out with further details and references to that report once it is published. 
 
-In each domain, the best experimental case (in terms of gameplay and model complexity) incorporated both transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in each domain are linked in the README.md file. The following steps will produce similar results. 
+In each domain, the best experimental case (in terms of gameplay and model complexity) incorporated both 
+transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in 
+each domain are linked in the README.md file. The following steps will produce similar results. 
 
 Note that each experiment required roughly 2.5 weeks to complete on a machine with 24 CPUs @ 2.4GHz.
 
