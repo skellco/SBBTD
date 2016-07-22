@@ -10,7 +10,7 @@ my $teamPow = 3;
 my $monolithic = 0;
 my $splitLevel = 0; #split-level transfer
 
-my $Msize = 180;a
+my $Msize = 180;
 my $pmd = 0.7;
 my $pma = 0.7;
 my $pmm = 0.2;
