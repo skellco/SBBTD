@@ -75,7 +75,7 @@ First, navigate to the root SBBTD directory and set the SBBTDPATH environment va
 
 	cd $SBBTDPATH/runPacman
 	$SBBTDPATH/scripts/getPacmanTestTeams.sh
-        for i in `seq 7100 100 8000`; do ./mspacman-runner-test.sh $i GamescoreTestTeams 3; done
+        for i in `seq 7100 100 8000`; do ./mspacman-runner-test.sh $i GamescoreTestTeams 100; done
 
 5. Print test results:
 
