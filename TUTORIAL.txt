@@ -34,7 +34,8 @@ After installing dependencis, navigate to the main SBBTD directory and type:
 
 === RUNNING EXPERIMENTS =======================
 
-These instructions will reproduce experiments detailed in a report that is currently under review for publication. The tutorial will be fleshed out with further details and references to that report once it is published. 
+These instructions will reproduce experiments detailed in a report that is currently under review for publication. 
+The tutorial will be fleshed out with further details and references to that report once it is published. 
 
 In each domain, the best experimental case (in terms of gameplay and model complexity) incorporated both 
 transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in 
