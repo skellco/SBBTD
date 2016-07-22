@@ -7,6 +7,8 @@ rSeed=$1
 # 3:replay policy
 mode=$2 
 
+echo "Running seed/port $rSeed..."
+
 ./genScript.pl sbb 1 $rSeed
 
 # start simulator #############################################
@@ -26,16 +28,16 @@ sleep 3
 
 if [ $mode -eq 0 ]; then
 #from scratch ghostscore task
-../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -O 5 -f 2 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
+../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 1 -O 5 -f 3 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
 
 
 elif [ $mode -eq 1 ]; then
 #from scratch pillscore task
-../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -O 5 -f 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
+../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 1 -O 5 -f 2 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
 
 elif [ $mode -eq 2 ]; then
 #pickup with new level
-../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $r -p $rSeed -f 0 -O 5 -H -C 0 -t 3 -l 0  1> sbb.$rSeed.std 2> sbb.$rSeed.err &
+../build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 2 -O 5 -f 1 -H -C 0 -t 3 -l 0  1> sbb.$rSeed.std 2> sbb.$rSeed.err &
 
 elif [ $mode -eq 3 ]; then
 #replay

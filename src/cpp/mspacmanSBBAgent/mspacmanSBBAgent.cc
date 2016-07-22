@@ -337,6 +337,7 @@ int main (int argc, char* argv[])
    int hostToReplay;
    int levelPickup;
    int levelStart = 0;
+   int numLevels = 1;
    int phase = TRAIN_PHASE;
    int port;
    long prevF = 0;
@@ -345,6 +346,7 @@ int main (int argc, char* argv[])
    bool startNewLevel = false;
    int statMod = 1;
    long step = 0; //running count of all interactions with environment
+   int tMain = 1;
    int tPickup;
    int tStart = 0;
    bool visual = false;
@@ -375,6 +377,11 @@ int main (int argc, char* argv[])
                startNewLevel = true;
                cout << "startNewLevel " << startNewLevel << endl;
                break;
+            case 'L':
+               str   = &argv[i+1][0];
+               numLevels = Parse::parseFirstInt( &str );
+               cout << "numLevels " << numLevels << endl;
+               break;
             case 'l':
                str   = &argv[i+1][0];
                levelPickup = Parse::parseFirstInt( &str );
@@ -403,6 +410,11 @@ int main (int argc, char* argv[])
                seed = Parse::parseFirstInt( &str );
                cout << "seed " << seed << endl;
                break;
+            case 'T':
+               str   = &argv[i+1][0];
+               tMain = Parse::parseFirstInt( &str );
+               cout << "tMain " << tMain << endl;
+               break;
             case 't':
                str   = &argv[i+1][0];
                tPickup = Parse::parseFirstInt( &str );
@@ -424,6 +436,7 @@ int main (int argc, char* argv[])
                cout << "-P <hostIdToReplay> (Load and replay a specific host ID. Requires checkpoint file and options -C, -l, and -t.)" << endl;
                cout << "-p <port> (Port for communicating with game server.)" << endl;
                cout << "-s <seed> (Random seed)" << endl;
+               cout << "-T <generations>" << endl;
                cout << "-t <t> (When loading populations form a checkpoint, t is the generation of the checkpoint file. Requires checkpoint file and options -C, and -l.)" << endl;
                cout << "-V (Run with visualization.)" << endl << endl;
                exit(0);
@@ -459,6 +472,8 @@ int main (int argc, char* argv[])
 
    //SBB Parameter Setup
    sbbMain.id(-1);
+   sbbMain.t(tMain);
+   sbbMain.numLevels(numLevels);
    sbbMain.seed(seed); 
    sbbMain.dim(SBB_DIM); 
    sbbMain.setParams(); 

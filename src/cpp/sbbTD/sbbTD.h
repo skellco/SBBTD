@@ -33,6 +33,7 @@ class sbbTD
       inline void  maxTrainingReward(double d) { _maxTrainingReward = d;}
       inline bool monolithic() { return _monolithic; } 
       inline int numLevels() { return _numLevels; }
+      inline void numLevels(int l) { _numLevels = l;}
       inline int numProfilePoints() { return _profilePointsFIFO.size(); }
       inline int numStoreOutcomesPerHost(int phase) { return _numStoredOutcomesPerHost[phase]; }
       inline void numStoredOutcomesPerHost(int phase, long nso) { _numStoredOutcomesPerHost[phase] = nso; }

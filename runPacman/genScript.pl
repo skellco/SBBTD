@@ -10,15 +10,13 @@ my $teamPow = 3;
 my $monolithic = 0;
 my $splitLevel = 0; #split-level transfer
 
-my $Msize = 8;
+my $Msize = 180;
 my $pmd = 0.7;
 my $pma = 0.7;
 my $pmm = 0.2;
 my $pmn = 0.1;
 my $omega = 30;
-my $t = 3;
-my $numLevels = 2;
-my $Mgap = 4;
+my $Mgap = 90;
 
 my $episodesPerGeneration = 10;
 
@@ -82,8 +80,6 @@ for($run = 0; $run < $numRuns; $run++)
     print ARG "pmm $pmm\n";
     print ARG "pmn $pmn\n";
     print ARG "omega $omega\n";
-    print ARG "t $t\n";
-    print ARG "numLevels $numLevels\n";
     print ARG "Mgap $Mgap\n";
     print ARG "\n";
 
