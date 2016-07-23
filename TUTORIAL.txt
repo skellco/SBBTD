@@ -41,13 +41,22 @@ In each domain, the best experimental case (in terms of gameplay and model compl
 transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in 
 each domain are linked in the README.md file. The following steps will produce similar results. 
 
-Note that each experiment required roughly 2.5 weeks to complete on a machine with 24 CPUs @ 2.4GHz.
+In both domains, learning agents communicate with the game server through sockets.
 
-First, navigate to the root SBBTD directory and set the SBBTDPATH environment variable:
+Before starting, navigate to the root SBBTD directory and set the SBBTDPATH environment variable:
 
 	export SBBTDPATH=`pwd`
 
 === Ms. Pac-Man ===
+
+Source code for the Ms. Pac-Man experiments can be found in:
+
+Game Server: src/java/MsPacManNew 
+Learning Agent: src/cpp/mspacmanSBBAgent
+SBBTD Algorithm: src/cpp/sbbTD 
+
+Once compiled, the experiment consists of calling the above code through a series of scripts.
+Note that steps 1 and 3 below each require roughly 1 week to complete on a machine with 24 CPUs @ 2.4GHz.
 
 1. Evolve 10 source populations in each subtask (steps 1a and 1b can run in parallel if you have enough CPUs):
 
