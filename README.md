@@ -10,6 +10,8 @@ Half Field Offense: https://youtu.be/ZPqa-m0x4so
 
 Ms. Pac-Man: https://youtu.be/xRt0AVn5HlI
 
+(Note that you can change the speed of video playback by clicking on settings in the lower-right corner.)
+
 For instructions on how to run this code, see TUTORIAL.txt. 
 
 BACKGROUND
