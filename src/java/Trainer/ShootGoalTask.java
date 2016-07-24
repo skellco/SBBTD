@@ -218,7 +218,6 @@ public class ShootGoalTask implements Task, SoccerTypes
       }
       else//Ball is in play 
       {
-         System.out.println("Ball in play...");
          if(isBallWithGoalie())
             timeWithGoalie++;
          else

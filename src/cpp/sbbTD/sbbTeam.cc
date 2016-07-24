@@ -421,30 +421,36 @@ long team::getAction(vector < double > &state,
 // Fill F with every feature indexed by every learner in this policy (tree).If we ever build 
 // massive policy tress, this should be changed to a more efficient traversal. For now just 
 // look at every node.
-int team::policyFeatures(set < long > &F)
+int team::policyFeatures(set < long > &F, bool active)
 {
    set < learner * > :: iterator leiter, leiterend;
    set < long > featuresSingle;
    set < long > :: iterator feiter;
    int numLearnersInPolicy = 0;
+   
+   set < learner * > searchSet;
+   if (active)
+      searchSet = _active;
+   else
+      searchSet = _members;
 
-   for(leiter = _members.begin(), leiterend = _members.end(); leiter != leiterend; leiter++)
+   for(leiter = searchSet.begin(), leiterend = searchSet.end(); leiter != leiterend; leiter++)
    {
       numLearnersInPolicy++;
       featuresSingle.clear();
       (*leiter)->features(featuresSingle);
       F.insert(featuresSingle.begin(),featuresSingle.end());
 
-      cout << "policyFeatures lev " << _level << " tm " << _id << " numFeatSingle " << featuresSingle.size() << " feat";
-      for(feiter = featuresSingle.begin(); feiter != featuresSingle.end(); feiter++)
-	 cout << " " << *feiter;
-      cout << " numPFeat " << F.size() << " pFeat";
-      for(feiter = F.begin(); feiter != F.end(); feiter++)
-	 cout << " " << *feiter;
-      cout << endl;
+      //cout << "policyFeatures lev " << _level << " tm " << _id << " numFeatSingle " << featuresSingle.size() << " feat";
+      //for(feiter = featuresSingle.begin(); feiter != featuresSingle.end(); feiter++)
+      //   cout << " " << *feiter;
+      //cout << " numPFeat " << F.size() << " pFeat";
+      //for(feiter = F.begin(); feiter != F.end(); feiter++)
+      //   cout << " " << *feiter;
+      //cout << endl;
 
       if (_level > 0)
-	 numLearnersInPolicy += (*_actions)[(*leiter)->action()]->policyFeatures(F); 
+	 numLearnersInPolicy += (*_actions)[(*leiter)->action()]->policyFeatures(F, active); 
    }
    return numLearnersInPolicy;
 }

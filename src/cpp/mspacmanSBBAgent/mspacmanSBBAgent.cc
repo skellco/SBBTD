@@ -472,7 +472,6 @@ int main (int argc, char* argv[])
 
    //SBB Parameter Setup
    sbbMain.id(-1);
-   sbbMain.t(tMain);
    sbbMain.numLevels(numLevels);
    sbbMain.seed(seed); 
    sbbMain.dim(SBB_DIM); 
@@ -536,7 +535,7 @@ int main (int argc, char* argv[])
          tStart = 0;
       }
       phase = TRAIN_PHASE;
-      for (int t = tStart+1; t <= sbbMain.t(); t++)
+      for (int t = tStart+1; t <= tMain; t++)
       {
          cout << "Starting generation " << t << endl;
          timeGenSec0 = time(NULL);
@@ -557,7 +556,7 @@ cout << " BB " << endl;
          timeGenSec1 = time(NULL);
          cout << "sbb::genTime t " << t  << " sec " << timeGenSec1 - timeGenSec0 << " (" << timeGenTotalInGame << " InGame, ";
          cout << timeGenTeams << " genTeams, " << timeSelTeams << " selTeams, " << timeCleanup << " cleanup)" << endl;
-         if (t == tStart+1 || t % statMod == 0 || t == sbbMain.t()){
+         if (t == tStart+1 || t % statMod == 0 || t == tMain){
 cout << "Running stats... " << endl;
             sbbMain.stats(t, level);
 cout << "Done stats." << endl;

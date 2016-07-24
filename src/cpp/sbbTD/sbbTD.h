@@ -51,8 +51,6 @@ class sbbTD
       inline long setupTeamCount(int s) { team_count = 1000*s; }
       inline bool splitLevel(){ return _splitLevel; }
       inline int stateDiscretizationSteps() { return _stateDiscretizationSteps; }
-      inline int t(){ return _t; }
-      inline void t(int t) { _t = t;}
       inline int tCull(){ return _tCull; }
       inline int testPhaseEpochs(){ return _testPhaseEpochs; }
       inline void testPhaseEpochs(int e){ _testPhaseEpochs = e; }
@@ -233,7 +231,6 @@ class sbbTD
       set < point * > _solvedPoints; /* Unique points solved so far during training. */
       bool _splitLevel;
       int _stateDiscretizationSteps;
-      long _t; /* Maximum number of training epochs. */
       int _tCull; /* what generation to test for restar. */
       long team_count;
       int _teamPow;

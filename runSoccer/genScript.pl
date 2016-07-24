@@ -10,17 +10,13 @@ my $teamPow = 3;
 my $monolithic = 0;
 my $splitLevel = 0; #split-level transfer
 
-my $Msize = 180;
+my $Msize = 8;
 my $pmd = 0.7;# 0.0
 my $pma = 0.7;# 0.0 
 my $pmm = 0.2;# 1.0
 my $pmn = 0.1;# 0.0
 my $omega = 30;
-my $t = 60;
-my $numLevels = 2;
-my $Mgap = 90;
-
-my $episodesPerGeneration = 5;
+my $Mgap = 4;
 
 my $maxProgSize = 96;
 my $pBidMutate = 1.0;
@@ -28,6 +24,7 @@ my $pBidSwap = 1.0;
 my $pBidDelete = 0.5;
 my $pBidAdd = 0.5;
 
+my $episodesPerGeneration = 5;
 my $validPhaseEpochs = 25;
 my $testPhaseEpochs = 1000;
 
@@ -82,8 +79,6 @@ for($run = 0; $run < $numRuns; $run++)
     print ARG "pmm $pmm\n";
     print ARG "pmn $pmn\n";
     print ARG "omega $omega\n";
-    print ARG "t $t\n";
-    print ARG "numLevels $numLevels\n";
     print ARG "Mgap $Mgap\n";
     print ARG "\n";
 
@@ -101,9 +96,9 @@ for($run = 0; $run < $numRuns; $run++)
     print ARG "pNoveltyPheno $pNoveltyPheno\n";
     print ARG "knnNovelty $knnNovelty\n";
 
+    print ARG "episodesPerGeneration $episodesPerGeneration\n";
     print ARG "validPhaseEpochs $validPhaseEpochs\n";
     print ARG "testPhaseEpochs $testPhaseEpochs\n";
-    print ARG "episodesPerGeneration $episodesPerGeneration\n";
 
     close(ARG);
 }

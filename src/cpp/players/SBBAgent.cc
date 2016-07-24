@@ -45,6 +45,7 @@ SBBAgent::SBBAgent( int numFeatures, int numActions, bool bLearn,
    lastAction = -1;
    sbb.seed(seed);
    sbb.dim(numFeatures);
+   sbb.numLevels(level+1);
    sbb.id(id);
    sleep(1);
    sbb.setParams();
@@ -179,18 +180,18 @@ int SBBAgent::selectAction(double state[], double episodeTime)
    }
 #endif
    /* SBB policy */
-   lo::Address policyAnimator("localhost", sbb.seed()+3);
-   long winningSymbiont_ID_1;
-   long winningSymbiont_ID_0;
+   //lo::Address policyAnimator("localhost", sbb.seed()+3);
+   //long winningSymbiont_ID_1;
+   //long winningSymbiont_ID_0;
    long decisionInstructions = 0;
    vector <long> policyTreeTraceIds;
    vector <double> stateVec(state, state + sbb.dim());
    for (int l = 0; l < sbb.numLevels(); l++) learnersRanked[l].clear();
    m_action = sbb.getAction(stateVec, true, learnersRanked, decisionInstructions,policyTreeTraceIds); //warning: updateActive set to true
 
-   //tracing root->leaf path through policy tree for animation
-   winningSymbiont_ID_1 = (*(learnersRanked[1].begin()))->id();
-   winningSymbiont_ID_0 = (*(learnersRanked[0].begin()))->id();
+   ////tracing root->leaf path through policy tree for animation
+   //winningSymbiont_ID_1 = (*(learnersRanked[1].begin()))->id();
+   //winningSymbiont_ID_0 = (*(learnersRanked[0].begin()))->id();
 
 #ifndef TIMING
    if (m_phase == PLAY_PHASE){
@@ -261,79 +262,79 @@ int SBBAgent::selectAction(double state[], double episodeTime)
 #endif
    lastAction = m_action;
    m_step++;
-   if (m_phase == PLAY_PHASE){
-      policyAnimator.send("act","ii",winningSymbiont_ID_1,winningSymbiont_ID_0);
-      cout << "winningSymbiont_ID_1 " << winningSymbiont_ID_1 << endl;
-      cout << "winningSymbiont_ID_0 " << winningSymbiont_ID_0 << endl;
-   }
+   //if (m_phase == PLAY_PHASE){
+   //   policyAnimator.send("act","ii",winningSymbiont_ID_1,winningSymbiont_ID_0);
+   //   cout << "winningSymbiont_ID_1 " << winningSymbiont_ID_1 << endl;
+   //   cout << "winningSymbiont_ID_0 " << winningSymbiont_ID_0 << endl;
+   //}
       return m_action;
 
-      //   /*****************************************************************
-      //    * Hand Coded Policy                         
-      //    *****************************************************************/
-      //   int numK = 4;
-      //   int numT = 5;
-      //
-      //   int j = 0;
-      //
-      //   double disK12 = state[j++];
-      //   double disK13 = state[j++];
-      //   double disK14 = state[j++];
-      //
-      //   double K2MinDisT = state[j++];
-      //   double K3MinDisT = state[j++];
-      //   double K4MinDisT = state[j++];
-      //
-      //   double K2MinAngCloseT = state[j++];
-      //   double K3MinAngCloseT = state[j++];
-      //   double K4MinAngCloseT = state[j++];
-      //
-      //   double K1MinDisTInCone = state[j++];
-      //
-      //   double K1MinDisT = state[j++];
-      //
-      //   double K1DisGoal = state[j++];
-      //   double K2DisGoal = state[j++];
-      //   double K3DisGoal = state[j++];
-      //   double K4DisGoal = state[j++];
-      //
-      //   double K1MaxAngGoal = state[j++];
-      //
-      //   double K1DisGoalie = state[j++];
-      //
-      //   double pv2 = passValue(disK12, K2MinDisT, K2MinAngCloseT, K2DisGoal);
-      //   double pv3 = passValue(disK13, K3MinDisT, K3MinAngCloseT, K3DisGoal);
-      //   double pv4 = passValue(disK14, K4MinDisT, K4MinAngCloseT, K4DisGoal);
-      //
-      //   int action;
-      //
-      //   if((K1DisGoal < 15.0) && (K1MaxAngGoal > 20.0))
-      //   {
-      //      action = ACTION_SG_SHOOT_GOAL;
-      //   }
-      //   else if((K1DisGoal < 25.0) && (K1MaxAngGoal > 40.0))
-      //   {
-      //      action = ACTION_SG_SHOOT_GOAL;
-      //   }
-      //   else if((K1MinDisT > 6.0) && (K1MinDisTInCone > 10.0))
-      //   {
-      //      action = ACTION_SG_DRIBBLE_NORMAL;
-      //      //action = ACTION_SG_DRIBBLE_TO_GOAL;
-      //   }
-      //   else if((pv2 > pv3) && (pv2 > pv4))
-      //   {
-      //      action = ACTION_SG_PASS_TO_K_2;
-      //   }
-      //   else if(pv3 > pv4)
-      //   {
-      //      action = ACTION_SG_PASS_TO_K_3;
-      //   }
-      //   else
-      //   {
-      //      action = ACTION_SG_PASS_TO_K_4;
-      //   }
-      //
-      //   return action;
+         ///*****************************************************************
+         // * Hand Coded Policy                         
+         // *****************************************************************/
+         //int numK = 4;
+         //int numT = 5;
+      
+         //int j = 0;
+      
+         //double disK12 = state[j++];
+         //double disK13 = state[j++];
+         //double disK14 = state[j++];
+      
+         //double K2MinDisT = state[j++];
+         //double K3MinDisT = state[j++];
+         //double K4MinDisT = state[j++];
+      
+         //double K2MinAngCloseT = state[j++];
+         //double K3MinAngCloseT = state[j++];
+         //double K4MinAngCloseT = state[j++];
+      
+         //double K1MinDisTInCone = state[j++];
+      
+         //double K1MinDisT = state[j++];
+      
+         //double K1DisGoal = state[j++];
+         //double K2DisGoal = state[j++];
+         //double K3DisGoal = state[j++];
+         //double K4DisGoal = state[j++];
+      
+         //double K1MaxAngGoal = state[j++];
+      
+         //double K1DisGoalie = state[j++];
+      
+         //double pv2 = passValue(disK12, K2MinDisT, K2MinAngCloseT, K2DisGoal);
+         //double pv3 = passValue(disK13, K3MinDisT, K3MinAngCloseT, K3DisGoal);
+         //double pv4 = passValue(disK14, K4MinDisT, K4MinAngCloseT, K4DisGoal);
+      
+         //int action;
+      
+         //if((K1DisGoal < 15.0) && (K1MaxAngGoal > 20.0))
+         //{
+         //   action = ACTION_SG_SHOOT_GOAL;
+         //}
+         //else if((K1DisGoal < 25.0) && (K1MaxAngGoal > 40.0))
+         //{
+         //   action = ACTION_SG_SHOOT_GOAL;
+         //}
+         //else if((K1MinDisT > 6.0) && (K1MinDisTInCone > 10.0))
+         //{
+         //   action = ACTION_SG_DRIBBLE_NORMAL;
+         //   //action = ACTION_SG_DRIBBLE_TO_GOAL;
+         //}
+         //else if((pv2 > pv3) && (pv2 > pv4))
+         //{
+         //   action = ACTION_SG_PASS_TO_K_2;
+         //}
+         //else if(pv3 > pv4)
+         //{
+         //   action = ACTION_SG_PASS_TO_K_3;
+         //}
+         //else
+         //{
+         //   action = ACTION_SG_PASS_TO_K_4;
+         //}
+      
+         //return action;
 }
 /***********************************************************************************************************/
 /* This method for hand-coded policy only. */

@@ -35,15 +35,14 @@ int checkpointInMode = 1;
 int iLearn = 1;
 bool initialDistanceToGoal = 1.0;
 bool initialize = true;
-int islandIn;
 long level;
 int levelPickup = 0;
 int levelStart = 0;
 int phaseToReplay = 2;
 bool monitor = false;
-bool multiLevel = false;
 int numFeatures;
 int numGamesToReplay;
+int numLevels = 1;
 int playerIdToReplay;
 int policy = 0;
 bool replayMode = false;
@@ -59,6 +58,7 @@ int synch_mode=1;
 long seed = 0;
 int taskType = 1;
 int testPhaseMod = 1;
+int tMain = 1;
 int tPickup = 0;
 int tStart = 0;
 bool rcss_noise = false;
@@ -107,13 +107,13 @@ int findLargestEvalFile(int phase){
       oss << "Can't open eval file read: " << inputFilename << endl;
       inFile.open(inputFilename, ios::in);
       if (!inFile) {
-	 die(__FILE__, __FUNCTION__, __LINE__, oss.str().c_str());
+         die(__FILE__, __FUNCTION__, __LINE__, oss.str().c_str());
       }
       oss.str("");
       string line;
       numEvalOutcomes[i]=0;
       while (getline(inFile, line) )
-	 numEvalOutcomes[i]++; 
+         numEvalOutcomes[i]++; 
       inFile.close();
    }
    return 1+distance(numEvalOutcomes, max_element(numEvalOutcomes, numEvalOutcomes+N));
@@ -205,17 +205,17 @@ void stopMonitor(){
 }
 /***********************************************************************************************************************/
 void rcssNoise(bool noise){
-   rcss_quantize_step=noise?0.01:0;
-   rcss_quantize_step_l=noise?0.001:0.00001;
-   rcss_ball_rand=noise?0.05:0;
-   rcss_kick_rand=noise?0.1:0;
-   rcss_kick_rand_factor_l=noise?1:0;
-   rcss_kick_rand_factor_r=noise?1:0;
-   rcss_player_rand=noise?0.1:0;
-   rcss_prand_factor_l=noise?1:0;
-   rcss_prand_factor_r=noise?1:0;
-   rcss_tackle_rand_factor=noise?2:0;
-   rcss_wind_rand=noise?0:0;
+   rcss_quantize_step=noise==true?0.1:0;
+   rcss_quantize_step_l=noise==true?0.01:0.00001;
+   rcss_ball_rand=noise==true?0.05:0;
+   rcss_kick_rand=noise==true?0.1:0;
+   rcss_kick_rand_factor_l=noise==true?1:0;
+   rcss_kick_rand_factor_r=noise==true?1:0;
+   rcss_player_rand=noise==true?0.1:0;
+   rcss_prand_factor_l=noise==true?1:0;
+   rcss_prand_factor_r=noise==true?1:0;
+   rcss_tackle_rand_factor=noise==true?2:0;
+   rcss_wind_rand=noise==true?0:0;
 }
 /***********************************************************************************************************************/
 void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int sizeTeamB,int policy){
@@ -236,16 +236,16 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
       oss << " -f sarsa." << sbb.seed() << ".wts";
       oss << " -e " << iLearn;
       if (iLearn == 0)
-	 oss << " -w sarsa_weights/sarsa." << i << ".sarsa." << sbb.seed() << ".wts." << sarsaWeightFileEpochNum << ".rslt"; 
+         oss << " -w sarsa_weights/sarsa." << i << ".sarsa." << sbb.seed() << ".wts." << sarsaWeightFileEpochNum << ".rslt"; 
       if (taskType == 1){
-	 oss << " -t Offense";
-	 oss << " -k " << sizeTeamB;
-	 oss << " -j " << sizeTeamA;
+         oss << " -t Offense";
+         oss << " -k " << sizeTeamB;
+         oss << " -j " << sizeTeamA;
       }
       else if (taskType == 3){
-	 oss << " -t keepers ";
-	 oss << " -k " << sizeTeamA;
-	 oss << " -j " << sizeTeamB;
+         oss << " -t keepers ";
+         oss << " -k " << sizeTeamA;
+         oss << " -j " << sizeTeamB;
       }
       oss << " -e 1";
       oss << " -q learned";
@@ -264,76 +264,75 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
    //start takers
    for (int i = 1; i <= sizeTeamB; i++){
       if (i < sizeTeamB){
-	 oss << "../build/release/cpp/players/soccer_player";
-	 oss << " -p " << sbb.seed();
-	 oss << " -z " << sbb.seed();
-	 if (taskType == 1){ 
-	    oss << " -t Defense";
-	    oss << " -k " << sizeTeamB;
-	    oss << " -j " << sizeTeamA;
-	 }
-	 else if (taskType == 3){ 
-	    oss << " -t takers";
-	    oss << " -k " << sizeTeamA;
-	    oss << " -j " << sizeTeamB;
-	 }
-	 oss << " -b " << i;
-	 oss << " -e 0";
-	 oss << " -q hand";
-	 oss << " -T " << taskType;
-	 oss << " -g 0";
-	 oss << " -x " << evalEpisodes;
-	 oss << " -Z " << t;
-	 oss << " -Y " << level;
-	 oss << " -X " << phase;
-	 oss << " > player_outs/t" << i << "_out" << seed << ".rslt 2>&1 &";
+         oss << "../build/release/cpp/players/soccer_player";
+         oss << " -p " << sbb.seed();
+         oss << " -z " << sbb.seed();
+         if (taskType == 1){ 
+            oss << " -t Defense";
+            oss << " -k " << sizeTeamB;
+            oss << " -j " << sizeTeamA;
+         }
+         else if (taskType == 3){ 
+            oss << " -t takers";
+            oss << " -k " << sizeTeamA;
+            oss << " -j " << sizeTeamB;
+         }
+         oss << " -b " << i;
+         oss << " -e 0";
+         oss << " -q hand";
+         oss << " -T " << taskType;
+         oss << " -g 0";
+         oss << " -x " << evalEpisodes;
+         oss << " -Z " << t;
+         oss << " -Y " << level;
+         oss << " -X " << phase;
+         oss << " > player_outs/t" << i << "_out" << seed << ".rslt 2>&1 &";
       }
       else{
-	 if (taskType == 1){ //goalie
-	    oss << "../build/release/cpp/players/soccer_player";
-	    oss << " -p " << sbb.seed();
-	    oss << " -z " << sbb.seed();
-	    oss << " -k " << sizeTeamB;
-	    oss << " -j " << sizeTeamA;
-	    oss << " -t Defense";
-	    oss << " -b " << i;
-	    oss << " -e 0";
-	    oss << " -q hand";
-	    oss << " -T " << taskType;
-	    oss << " -g 1";
-	    oss << " -x " << evalEpisodes;
-	    oss << " -Z " << t;
-	    oss << " -Y " << level;
-	    oss << " -X " << phase;
-	    oss << " > player_outs/t" << i << "_out" << seed << ".rslt 2>&1 &";
-	 }
-	 else if (taskType == 3){//last player
-	    oss << "../build/release/cpp/players/soccer_player";
-	    oss << " -p " << sbb.seed();
-	    oss << " -z " << sbb.seed();
-	    oss << " -t takers";
-	    oss << " -k " << sizeTeamA;
-	    oss << " -j " << sizeTeamB;
-	    oss << " -e 0";
-	    oss << " -q hand";
-	    oss << " -T " << taskType;
-	    oss << " -g 0";
-	    oss << " -x " << evalEpisodes;
-	    oss << " -Z " << t;
-	    oss << " -Y " << level;
-	    oss << " -X " << phase;
-	    oss << " > player_outs/t" << sizeTeamB << "_out" << seed << ".rslt 2>&1 &";
-	 }
+         if (taskType == 1){ //goalie
+            oss << "../build/release/cpp/players/soccer_player";
+            oss << " -p " << sbb.seed();
+            oss << " -z " << sbb.seed();
+            oss << " -k " << sizeTeamB;
+            oss << " -j " << sizeTeamA;
+            oss << " -t Defense";
+            oss << " -b " << i;
+            oss << " -e 0";
+            oss << " -q hand";
+            oss << " -T " << taskType;
+            oss << " -g 1";
+            oss << " -x " << evalEpisodes;
+            oss << " -Z " << t;
+            oss << " -Y " << level;
+            oss << " -X " << phase;
+            oss << " > player_outs/t" << i << "_out" << seed << ".rslt 2>&1 &";
+         }
+         else if (taskType == 3){//last player
+            oss << "../build/release/cpp/players/soccer_player";
+            oss << " -p " << sbb.seed();
+            oss << " -z " << sbb.seed();
+            oss << " -t takers";
+            oss << " -k " << sizeTeamA;
+            oss << " -j " << sizeTeamB;
+            oss << " -e 0";
+            oss << " -q hand";
+            oss << " -T " << taskType;
+            oss << " -g 0";
+            oss << " -x " << evalEpisodes;
+            oss << " -Z " << t;
+            oss << " -Y " << level;
+            oss << " -X " << phase;
+            oss << " > player_outs/t" << sizeTeamB << "_out" << seed << ".rslt 2>&1 &";
+         }
       }
       system ( oss.str().c_str() );
       oss.str("");
       sleep(1);
    }
-   sleep(120);////////////////////////////////////////
    //start trainer
    oss << "java -Xms256m";
    oss << " -Xmx4g";
-   oss << " -classpath ../code/java/Trainer/";
+   oss << " -classpath ../src/java/Trainer/";
    oss << " Trainer";
    oss << " -port " << sbb.seed()+1;
    oss << " -monitor 0 ";

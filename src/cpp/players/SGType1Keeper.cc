@@ -75,17 +75,17 @@ SGType1Keeper::SGType1Keeper( SarsaAgent  *sa, SBBAgent *sbba, ActHandler *act, 
 SoccerCommand SGType1Keeper::player(int & m_episodeCount)
 {
    SoccerCommand soc;
-   cout << "PLAY_MODE " << WM->getPlayMode() << endl;
-   if (WM->getPlayMode() == 29){//game is frozen
-      //STAY
-      VecPosition destination;
-      VecPosition myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
-      myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
-      destination = VecPosition(myPosI.getX(),myPosI.getY());
-      soc = moveToPos(destination, 30, 5, false, 5);
-      ACT->putCommandInQueue(soc);
-      return soc;
-   }
+   //cout << "PLAY_MODE " << WM->getPlayMode() << endl;
+   //if (WM->getPlayMode() == 29){//game is frozen
+   //   //STAY
+   //   VecPosition destination;
+   //   VecPosition myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
+   //   myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
+   //   destination = VecPosition(myPosI.getX(),myPosI.getY());
+   //   soc = moveToPos(destination, 30, 5, false, 5);
+   //   ACT->putCommandInQueue(soc);
+   //   return soc;
+   //}
 
    double reward = 7;
    if(WM->isNewTrainerMessageHeard())

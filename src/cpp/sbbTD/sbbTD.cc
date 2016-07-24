@@ -1108,7 +1108,7 @@ void sbbTD::printTeamInfo(long t, long level, int phase){
       oss << vecToStrNoSpace(behaviourSequence);
       //oss << endl;
       set < long > features;
-      (*teiter)->policyFeatures(features);
+      (*teiter)->policyFeatures(features, true);
       oss << "policyFeatures uniq " << features.size() << " feat ";
       set <long >::iterator feiter;
       for(feiter = features.begin(); feiter!=features.end();feiter++)
@@ -1742,7 +1742,6 @@ void sbbTD::setParams()
    oss << "pmm " << _pmm << endl;
    oss << "pmn " << _pmn << endl;
    oss << "omega " << _omega << endl;
-   oss << "t " << _t << endl;
    oss << "numLevels " << _numLevels << endl;
    oss << "Mgap " << _Mgap << endl;
 
@@ -1784,9 +1783,6 @@ void sbbTD::setParams()
 
    if(_omega < 2)
       die(__FILE__, __FUNCTION__, __LINE__, "bad arg omega < 2");
-
-   if(_t < 1)
-      die(__FILE__, __FUNCTION__, __LINE__, "bad arg t < 1");
 
    if(_Mgap < 1 || _Mgap >= _Msize)
       die(__FILE__, __FUNCTION__, __LINE__, "bad arg Mgap < 1 || Mgap >= Msize");

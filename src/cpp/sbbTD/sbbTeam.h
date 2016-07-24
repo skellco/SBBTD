@@ -99,7 +99,7 @@ class team
    inline void parentNovelty(double n) { _parentNovelty = n; }
    inline double parentScore(){ return _parentScore; }
    inline void parentScore(double n) { _parentScore = n; }
-   int policyFeatures(set < long > &); //populates set with features and returns number of nodes(learners) in policy
+   int policyFeatures(set < long > &, bool); //populates set with features and returns number of nodes(learners) in policy
    int policyInstructions(bool);
    int policyHosts(vector<long> &, int, bool);
    string printBids(string);
@@ -138,9 +138,9 @@ struct teamIdComp
 struct teamScoreLexicalCompare {
    bool operator()(team* t1, team* t2) {
       set < long > policyFeaturesT1;
-      int pf_t1 = t1->policyFeatures(policyFeaturesT1);
+      int pf_t1 = t1->policyFeatures(policyFeaturesT1,false);
       set < long > policyFeaturesT2;
-      int pf_t2 = t2->policyFeatures(policyFeaturesT2);
+      int pf_t2 = t2->policyFeatures(policyFeaturesT2,false);
       if (t1->score() != t2->score()){ t1->lastCompareFactor(0); t2->lastCompareFactor(0); return t1->score() > t2->score();} //score, higher is better
       else if (t1->asize() != t2->asize()){ t1->lastCompareFactor(1); t2->lastCompareFactor(1);  return t1->asize() < t2->asize();} //team size post intron removal (active members), smaller is better
       else if (pf_t1 != pf_t2){ t1->lastCompareFactor(3); t2->lastCompareFactor(3); return pf_t1 < pf_t2;} //total number of learners (nodes), less is better
