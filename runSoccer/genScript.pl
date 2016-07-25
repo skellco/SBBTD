@@ -24,9 +24,9 @@ my $pBidSwap = 1.0;
 my $pBidDelete = 0.5;
 my $pBidAdd = 0.5;
 
-my $episodesPerGeneration = 5;
-my $validPhaseEpochs = 25;
-my $testPhaseEpochs = 1000;
+my $episodesPerGeneration = 1;
+my $validPhaseEpochs = 2;
+my $testPhaseEpochs = 2;
 
 # SBB Diversity #############################################################
 my $diversityMode = 7; # 0) normalized fitness only; 3) linear combination, 7) paretoScoreRanking

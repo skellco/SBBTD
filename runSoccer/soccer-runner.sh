@@ -32,7 +32,7 @@ sleep 1
 ## SBB ######################################################################
 if [ $mode -eq 0  ]; then
 #Half Field keepaway 4v3
-../build/release/cpp/experiments_robocup/exp_robocup -T 3 -L 1 -O 5 -R -s $rSeed -A 4 -B 3 -f 11 -Y 3 1> sbb.$rSeed.std  2> sbb.$rSeed.err &
+../build/release/cpp/experiments_robocup/exp_robocup -T 1 -L 1 -O 5 -R -s $rSeed -A 4 -B 3 -f 11 -Y 3 1> sbb.$rSeed.std  2> sbb.$rSeed.err &
 elif [ $mode -eq 1  ]; then
 #Scoring 4v4 
 ../build/release/cpp/experiments_robocup/exp_robocup -D 0 -T 3 -L 1 -O 5 -R -s $rSeed -A 4 -B 4 -f 17 -Y 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &

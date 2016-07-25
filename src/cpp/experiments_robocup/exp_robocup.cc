@@ -39,9 +39,9 @@ int main (int argc, char* argv[])
                checkpointInMode = Parse::parseFirstInt( &str );
                break;
             case 'D':
-                              str   = &argv[i+1][0];
-                                                            initialDistanceToGoal = Parse::parseFirstInt( &str );
-                                                                           break;
+               str   = &argv[i+1][0];
+               initialDistanceToGoal = Parse::parseFirstInt( &str );
+               break;
             case 'E':
                str   = &argv[i+1][0];
                testPhaseMod = Parse::parseFirstInt( &str );
@@ -92,6 +92,10 @@ int main (int argc, char* argv[])
                phaseToReplay = Parse::parseFirstInt( &str );
                replayMode = true; 
                break;
+            case 'Q':
+               str   = &argv[i+1][0];
+               numTestPhases = Parse::parseFirstInt( &str );
+               break;
             case 'R':
                rcss_noise = true;
                break;
@@ -139,6 +143,7 @@ int main (int argc, char* argv[])
                cout << "-m: (Visualize with rcssmonitor)" << endl;
                cout << "-N (synch_mode off, run slower for visualization)" << endl;
                cout << "-p <phase to replay> (Replay a policy and specify which phase the checkpoint is from, TAIN_MODE:0, VALIDATION_MODE:1, or TEST_MODE:2.)" << endl;
+               cout << "-Q <numTestPhases>" << endl;
                cout << "-R (Turn rcss_noise on)" << endl;
                cout << "-S (Use Sarsa policy)" << endl;
                cout << "-s <Random Seed>" << endl;    
@@ -319,13 +324,15 @@ int main (int argc, char* argv[])
          oss.str("");
 
          //test
-         if (testPhaseMod > 0 && ((t == tStart+1 || t == tMain) || t % testPhaseMod == 0))
+         //if (testPhaseMod > 0 && ((t == tStart+1 || t == tMain) || t % testPhaseMod == 0))
+         //   runTest(t,level);
+         if (t >= (tMain - numTestPhases))
             runTest(t,level);
       }
       sbb.finalize();
       initialize = true;
    }
    sbb.finalfinalize();
-   return 0;
    cout << "Goodbye cruel world. (Main)" << endl;
+   return 0;
 }

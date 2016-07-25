@@ -43,6 +43,7 @@ bool monitor = false;
 int numFeatures;
 int numGamesToReplay;
 int numLevels = 1;
+int numTestPhases = 1;
 int playerIdToReplay;
 int policy = 0;
 bool replayMode = false;
