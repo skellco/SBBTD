@@ -1,23 +1,24 @@
 #!/bin/bash
-if [ ! -d "$SBBTDPATH/data" ]; then mkdir $SBBTDPATH/data; 
-else rm -rf $SBBTDPATH/data/*
+
+if [ ! -d "$SBBTDPATH/data_robocup" ]; then mkdir $SBBTDPATH/data_robocup; 
+else rm -rf $SBBTDPATH/data_robocup/*
 fi
 
-cd $SBBTDPATH/mspacman-ghostscore
-$SBBTDPATH/scripts/getGhostscoreBestTeams.sh
-cp ghostscore_BestFromEachRun.rslt ../data
+cd $SBBTDPATH/robocup-keepaway
+$SBBTDPATH/scripts/getKeepawayBestTeams.sh
+cp keepaway_BestFromEachRun.rslt ../data_robocup
 
-cd $SBBTDPATH/mspacman-pillscore
-$SBBTDPATH/scripts/getPillscoreBestTeams.sh
-cp pillscore_BestFromEachRun.rslt $SBBTDPATH/data
+cd $SBBTDPATH/robocup-scoring
+$SBBTDPATH/scripts/getScoringBestTeams.sh
+cp scoring_BestFromEachRun.rslt $SBBTDPATH/data_robocup
 
-cd $SBBTDPATH/data
-cp -r ../mspacman-ghostscore/checkpoints checkpoints-ghostscore
-cp -r ../mspacman-pillscore/checkpoints checkpoints-pillscore
-../scripts/prepare-single-composit.sh 7100 3 checkpoints-ghostscore ghostscore-composite
-../scripts/prepare-single-composit.sh 8100 3 checkpoints-pillscore pillscore-composite
-../scripts/compileTransferSourcePolicies.sh 4 3
+cd $SBBTDPATH/data_robocup
+cp -r ../robocup-keepaway/checkpoints checkpoints-keepaway
+cp -r ../robocup-scoring/checkpoints checkpoints-scoring
+../scripts/prepare-single-composit.sh 7100 3 checkpoints-keepaway keepaway-composite
+../scripts/prepare-single-composit.sh 8100 3 checkpoints-scoring scoring-composite
+../scripts/compileTransferSourcePolicies.sh robocup
 
-cd $SBBTDPATH/runPacman
+cd $SBBTDPATH/runSoccer
 ./cleanup
-cp ../data/TransferSourcePolicies/* checkpoints
+cp ../data_robocup/TransferSourcePolicies/* checkpoints

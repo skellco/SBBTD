@@ -1,13 +1,14 @@
 #!/bin/bash
 rSeed=$1
 #Modes
-# 0:train keepaway
-# 1:train scoring
+# 0:train Keepaway
+# 1:train Scoring
+# 2:train Half Field Offense with transfer
 mode=$2
 
 echo "Starting run $rSeed..."
 
-if [ $mode -eq 0  ]; then
+if [ $mode -eq 0  ] || [ $mode -eq 2  ]; then
 ./genScript.pl sbb 1 $rSeed
 elif [ $mode -eq 1  ]; then
 ./genScript-scoring.pl sbb 1 $rSeed
@@ -30,15 +31,17 @@ sleep 1
 #../build/release/experiments_robocup/sbbsoc -m -N -R -s $r -e 0 -w 20000 -A 4 -B 4 -f 17 -Y 1 -S 1000 1> sarsa.$r.replay.std 2> sarsa.$r.replay.err &
 
 ## SBB ######################################################################
-if [ $mode -eq 0  ]; then
+if [ $mode -eq 0 ]; then
 #Half Field keepaway 4v3
-../build/release/cpp/experiments_robocup/exp_robocup -T 1 -L 1 -O 5 -R -s $rSeed -A 4 -B 3 -f 11 -Y 3 1> sbb.$rSeed.std  2> sbb.$rSeed.err &
-elif [ $mode -eq 1  ]; then
-#Scoring 4v4 
+../build/release/cpp/experiments_robocup/exp_robocup -T 3 -L 1 -O 5 -R -s $rSeed -A 4 -B 3 -f 11 -Y 3 1> sbb.$rSeed.std  2> sbb.$rSeed.err &
+elif [ $mode -eq 1 ]; then
+#Scoring 4v4
 ../build/release/cpp/experiments_robocup/exp_robocup -D 0 -T 3 -L 1 -O 5 -R -s $rSeed -A 4 -B 4 -f 17 -Y 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
+
+elif [ $mode -eq 2 ]; then
+#Half Field Offense with transfer
+../build/release/cpp/experiments_robocup/exp_robocup -D 1 -T 3 -L 2 -H -t 0 -l 0 -Q 50 -O 5 -R -s $rSeed -A 4 -B 4 -f 17 -Y 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
 fi
-
-
 
 #half-field keepaway 4v3 replay
 #../build/release/experiments_robocup/sbbsoc -R -s $r -p 2 -t 125 -l 0 -i 1 -g 100 -A 4 -B 3 -f 11 -Y 3  > sbb.$r.std &
