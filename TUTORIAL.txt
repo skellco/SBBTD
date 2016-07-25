@@ -77,7 +77,7 @@ Note that steps 1 and 3 below each require roughly 1 week to complete on a machi
 
 2. Compile and filter source task populations.
 
-	$SBBTDPATH/scripts/compileAndFilterSourceTaskPops.sh
+	$SBBTDPATH/scripts/compileAndFilterSourceTaskPops_mspacman.sh
 
 3. Evolve 10 target task populations:
 	
