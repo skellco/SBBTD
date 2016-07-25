@@ -512,8 +512,6 @@ int main (int argc, char* argv[])
          return 0;
       }
 
-      cout << "Read the checkpoint and such..." << endl;
-
       initialize = false; //can skip initialization for current level
       //starting a new level
       if (startNewLevel)
@@ -541,9 +539,7 @@ int main (int argc, char* argv[])
          timeGenSec0 = time(NULL);
          timeGenTotalInGame = 0;
          timeTemp = time(NULL); sbbMain.genTeams(t, level); timeGenTeams = time(NULL) - timeTemp; //replacement
-cout << " AA " << endl;
          runEval(policyAnimator,mspacmanServer,sbbMain,t,level,phase,visual,timeGenTotalInGame,-1);
-cout << " BB " << endl;
          sbbMain.hostDistanceMode(drand48() > 0.5 ? 1 : 0); //diversity switching
          sbbMain.hostFitnessMode(hostFitnessMode);
          mspacmanServer.send("sleep");
@@ -557,14 +553,10 @@ cout << " BB " << endl;
          cout << "sbb::genTime t " << t  << " sec " << timeGenSec1 - timeGenSec0 << " (" << timeGenTotalInGame << " InGame, ";
          cout << timeGenTeams << " genTeams, " << timeSelTeams << " selTeams, " << timeCleanup << " cleanup)" << endl;
          if (t == tStart+1 || t % statMod == 0 || t == tMain){
-cout << "Running stats... " << endl;
             sbbMain.stats(t, level);
-cout << "Done stats." << endl;
          }
       }
-cout << "Finalizing..." << endl;
       sbbMain.finalize();
-cout << "done Finalizing" << endl;
       initialize = true;
    }
    sbbMain.finalfinalize();

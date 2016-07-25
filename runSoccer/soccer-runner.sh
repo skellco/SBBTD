@@ -40,7 +40,7 @@ elif [ $mode -eq 1 ]; then
 
 elif [ $mode -eq 2 ]; then
 #Half Field Offense with transfer
-../build/release/cpp/experiments_robocup/exp_robocup -D 1 -T 3 -L 2 -H -t 0 -l 0 -Q 50 -O 5 -R -s $rSeed -A 4 -B 4 -f 17 -Y 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
+../build/release/cpp/experiments_robocup/exp_robocup -D 1 -T 1 -L 2 -H -t 0 -l 0 -Q 50 -O 5 -R -s $rSeed -A 4 -B 4 -f 17 -Y 1 1> sbb.$rSeed.std 2> sbb.$rSeed.err &
 fi
 
 #half-field keepaway 4v3 replay

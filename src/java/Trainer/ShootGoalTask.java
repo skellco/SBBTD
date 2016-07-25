@@ -485,10 +485,10 @@ public class ShootGoalTask implements Task, SoccerTypes
 
       CMD.move( ID_BALL, pos, new VecPosition( 0, 0 ) );
       
-      CMD.changeMode( PM_Pause );
-      try{ Thread.sleep(ANIMATION_DELAY); }
-      catch (Exception e) { System.out.println(e); }
-      CMD.changeMode( PM_PlayOn );
+      //CMD.changeMode( PM_Pause );
+      //try{ Thread.sleep(ANIMATION_DELAY); }
+      //catch (Exception e) { System.out.println(e); }
+      //CMD.changeMode( PM_PlayOn );
 
       takeTime = 0;
       startTime = WS.getTime();

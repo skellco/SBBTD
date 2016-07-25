@@ -57,19 +57,19 @@ SGTaker::SGTaker( SarsaAgent  *sa, ActHandler *act, WorldModel *wm,
 
 SoccerCommand SGTaker::player(int & episodeCount)
 {
-   cout << "PlayMode " << WM->getPlayMode() << endl;
+   //cout << "PlayMode " << WM->getPlayMode() << endl;
    SoccerCommand soc;
 
-   if (WM->getPlayMode() == 29){//game is frozen
-      //STAY
-      VecPosition destination;
-      VecPosition myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
-      myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
-      destination = VecPosition(myPosI.getX(),myPosI.getY());
-      soc = moveToPos(destination, 30, 5, false, 5);
-      ACT->putCommandInQueue(soc);
-      return soc;
-   }
+   //if (WM->getPlayMode() == 29){//game is frozen
+   //   //STAY
+   //   VecPosition destination;
+   //   VecPosition myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
+   //   myPosI = WM->getGlobalPosition(WM->getAgentObjectType());
+   //   destination = VecPosition(myPosI.getX(),myPosI.getY());
+   //   soc = moveToPos(destination, 30, 5, false, 5);
+   //   ACT->putCommandInQueue(soc);
+   //   return soc;
+   //}
 
    if ( WM->isNewEpisode() )
    {

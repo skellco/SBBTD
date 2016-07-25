@@ -270,14 +270,14 @@ void sbbTD::finalize(){
 
    _mdom = _pdom = 0;
 
-   for (vector<point *>::iterator it = _profilePoints.begin() ; it != _profilePoints.end(); it++)
-      delete *it;
+   //for (vector<point *>::iterator it = _profilePoints.begin() ; it != _profilePoints.end(); it++)
+   //   delete *it;
 
-   while (_profilePointsFIFO.size() != 0){
-      point *p = _profilePointsFIFO.front();
-      _profilePointsFIFO.pop_front();
-      delete p;
-   }
+   //while (_profilePointsFIFO.size() != 0){
+   //   point *p = _profilePointsFIFO.front();
+   //   _profilePointsFIFO.pop_front();
+   //   delete p;
+   //}
 }
 /***********************************************************************************************************/
 

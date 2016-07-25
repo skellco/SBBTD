@@ -324,8 +324,8 @@ int main (int argc, char* argv[])
          oss.str("");
 
          //test
-         //if (testPhaseMod > 0 && ((t == tStart+1 || t == tMain) || t % testPhaseMod == 0))
-         //   runTest(t,level);
+         if (testPhaseMod > 0 && ((t == tStart+1 || t == tMain) || t % testPhaseMod == 0))
+            runTest(t,level);
          if (t >= (tMain - numTestPhases))
             runTest(t,level);
       }
