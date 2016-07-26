@@ -111,17 +111,13 @@ Note that steps 1 and 3 below each require several days to complete on a machine
 
 1a. Keepaway task:
 
-	cd $SBBTDPATH
-      	cp -r runSoccer robocup-keepaway
-	cd robocup-keepaway
-	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i 0; done
+	cd $SBBTDPATH/experiments_robocup/keepaway
+	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
 
 1b. Scoring task:
 
-	cd $SBBTDPATH
-      	cp -r runSoccer robocup-scoring
-	cd robocup-scoring
-	for i in `seq 8100 100 9000`; do ./soccer-runner.sh $i 1; done
+	cd $SBBTDPATH/experiments_robocup/scoring
+	for i in `seq 8100 100 9000`; do ./soccer-runner.sh $i; done
 
 2. Compile and filter source task populations.
 
@@ -129,12 +125,12 @@ Note that steps 1 and 3 below each require several days to complete on a machine
 
 3. Evolve 10 target task populations:
 	
-	cd $SBBTDPATH/runSoccer
-	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i 2; done
+	cd $SBBTDPATH/experiments_robocup/hfo
+	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
 
 4. Print test results:
 
-	cd $SBBTDPATH/runSocer
+	cd $SBBTDPATH/experiments_robocup/hfo
 	$SBBTDPATH/scripts/getHFOTestResults.sh 
 
 	
