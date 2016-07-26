@@ -1,0 +1,12 @@
+#!/bin/bash
+if ls *err 1> /dev/null 2>&1; then rm *.err; fi
+if ls *arg 1> /dev/null 2>&1; then rm *.arg; fi
+if ls *std 1> /dev/null 2>&1; then rm *.std; fi
+if ls trainer-* 1> /dev/null 2>&1; then rm trainer-*; fi
+if ls server_out 1> /dev/null 2>&1; then rm server_out; fi
+if ls *rslt 1> /dev/null 2>&1; then rm *.rslt; fi
+if ls *pdf 1> /dev/null 2>&1; then rm *.pdf; fi
+if ls checkpoints/* 1> /dev/null 2>&1; then rm checkpoints/*; fi
+if ls evals/* 1> /dev/null 2>&1; then rm evals/*; fi
+if ls player_outs/* 1> /dev/null 2>&1; then rm player_outs/*; fi
+

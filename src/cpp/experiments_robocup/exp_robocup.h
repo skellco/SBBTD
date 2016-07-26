@@ -225,7 +225,7 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
    if (monitor == true) startMonitor();
    //start keepers
    for (int i = 1; i <= sizeTeamA; i++){
-      oss << "../build/release/cpp/players/soccer_player";
+      oss << "$SBBTDPATH/build/release/cpp/players/soccer_player";
       oss << " -P " << policy;
       oss << " -p " << sbb.seed();
       oss << " -z " << sbb.seed();
@@ -265,7 +265,7 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
    //start takers
    for (int i = 1; i <= sizeTeamB; i++){
       if (i < sizeTeamB){
-         oss << "../build/release/cpp/players/soccer_player";
+         oss << "$SBBTDPATH/build/release/cpp/players/soccer_player";
          oss << " -p " << sbb.seed();
          oss << " -z " << sbb.seed();
          if (taskType == 1){ 
@@ -291,7 +291,7 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
       }
       else{
          if (taskType == 1){ //goalie
-            oss << "../build/release/cpp/players/soccer_player";
+            oss << "$SBBTDPATH/build/release/cpp/players/soccer_player";
             oss << " -p " << sbb.seed();
             oss << " -z " << sbb.seed();
             oss << " -k " << sizeTeamB;
@@ -309,7 +309,7 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
             oss << " > player_outs/t" << i << "_out" << seed << ".rslt 2>&1 &";
          }
          else if (taskType == 3){//last player
-            oss << "../build/release/cpp/players/soccer_player";
+            oss << "$SBBTDPATH/build/release/cpp/players/soccer_player";
             oss << " -p " << sbb.seed();
             oss << " -z " << sbb.seed();
             oss << " -t takers";
@@ -333,7 +333,7 @@ void runEval(int t, int level, int evalEpisodes, int phase, int sizeTeamA, int s
    //start trainer
    oss << "java -Xms256m";
    oss << " -Xmx4g";
-   oss << " -classpath ../src/java/Trainer/";
+   oss << " -classpath $SBBTDPATH/src/java/Trainer/";
    oss << " Trainer";
    oss << " -port " << sbb.seed()+1;
    oss << " -monitor 0 ";

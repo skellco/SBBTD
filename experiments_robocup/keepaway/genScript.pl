@@ -24,8 +24,8 @@ my $pBidSwap = 1.0;
 my $pBidDelete = 0.5;
 my $pBidAdd = 0.5;
 
-my $episodesPerGeneration = 25;
-my $validPhaseEpochs = 10;#NA
+my $episodesPerGeneration = 5;
+my $validPhaseEpochs = 3;#NA
 my $testPhaseEpochs = 1000;
 
 # SBB Diversity #############################################################
