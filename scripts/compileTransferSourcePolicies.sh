@@ -11,13 +11,13 @@ teamsB="pillscore_BestFromEachRun.rslt"
 
 elif [ "$task" == "robocup" ]; then
 MgapA=$(cat $SBBTDPATH/robocup-keepaway/genScript.pl | grep "my \$Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
-MgapB=$(cat $SBBTDPATH/robocup-scoring/genScript.pl | grep "my \$Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
+MgapB=$(cat $SBBTDPATH/robocup-scoring/genScript-scoring.pl | grep "my \$Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
 compositeDirA="keepaway-composite"
 teamsA="keepaway_BestFromEachRun.rslt"
 compositeDirB="scoring-composite"
 teamsB="scoring_BestFromEachRun.rslt"
 fi
-
+echo "MgapA MgapB $MgapA $MgapB"
 ################################################################################################################
 #compile teamsA
 
