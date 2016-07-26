@@ -14,5 +14,5 @@ sleep 3
 
 # start sbb ###################################################
 
-$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 3 -L 1 -O 5 -f 3 1> sbb.$rSeed.std 2> sbb.$rSeed.err & #Ghostscore task
+$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 1 -O 5 -f 3 1> sbb.$rSeed.std 2> sbb.$rSeed.err & #Ghostscore task
 

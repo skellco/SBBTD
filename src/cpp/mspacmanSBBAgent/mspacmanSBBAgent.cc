@@ -192,7 +192,7 @@ void runEval(lo::Address &e_policyAnimator, lo::Address &e_mspacmanServer, sbbTD
       int numEval = 0;
       if (hostToReplay >= 0){ 
          sbbEval.activeTeam(hostToReplay); 
-         numEval = 100;
+         numEval = 3;
       }
       else {
          sbbEval.getFirstTeam();
@@ -525,7 +525,6 @@ int main (int argc, char* argv[])
    //hierarchical training loop
    for (int level = levelStart; level < sbbMain.numLevels(); level++)
    {
-      cout << "Starting level " << level << endl;
       if (initialize == true){
          timeTemp = time(NULL);
          sbbMain.initTeams(level);
@@ -535,7 +534,6 @@ int main (int argc, char* argv[])
       phase = TRAIN_PHASE;
       for (int t = tStart+1; t <= tMain; t++)
       {
-         cout << "Starting generation " << t << endl;
          timeGenSec0 = time(NULL);
          timeGenTotalInGame = 0;
          timeTemp = time(NULL); sbbMain.genTeams(t, level); timeGenTeams = time(NULL) - timeTemp; //replacement

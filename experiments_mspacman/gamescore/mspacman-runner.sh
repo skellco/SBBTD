@@ -15,5 +15,5 @@ sleep 3
 # start sbb ###################################################
 
 #Gamescore with transfer
-$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 3 -L 2 -O 5 -f 1 -H -C 0 -t 0 -l 0  1> sbb.$rSeed.std 2> sbb.$rSeed.err & 
+$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 2 -O 5 -f 1 -H -C 0 -t 0 -l 0  1> sbb.$rSeed.std 2> sbb.$rSeed.err & 
 

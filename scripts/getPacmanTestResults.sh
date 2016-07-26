@@ -21,7 +21,7 @@ for run in `seq $firstRun 100 $lastRun`; do
       if (( $(echo "$mean > $maxMean" | bc -l) )); then maxMean=$mean; fBest=$f; fi
    done
    sumAll=$(echo "scale=4; $sumAll + $maxMean" | bc)
-   echo "Run $fBest Gamescore $maxMean"
+   echo "Run: $fBest Mean Gamescore: $maxMean"
 done
 meanAll=$(echo "scale=4; $sumAll/10" | bc)
 echo "Overall mean: $meanAll"

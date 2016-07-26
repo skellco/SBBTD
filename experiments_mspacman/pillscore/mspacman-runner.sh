@@ -13,4 +13,4 @@ java -jar $SBBTDPATH/src/java/MsPacManNew/bin/pacman/MsPacManSimulator-points.ja
 sleep 3
 
 #Pillscore task
-$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 3 -L 1 -O 5 -f 2 1> sbb.$rSeed.std 2> sbb.$rSeed.err & 
+$SBBTDPATH/build/release/cpp/mspacmanSBBAgent/mspacmanSBBAgent -s $rSeed -p $rSeed -T 100 -L 1 -O 5 -f 2 1> sbb.$rSeed.std 2> sbb.$rSeed.err & 
