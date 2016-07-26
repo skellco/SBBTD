@@ -57,7 +57,7 @@ Experiment: src/cpp/experiments_robocup
 SBBTD Algorithm: src/cpp/sbbTD 
 
 Once compiled, the experiment consists of calling the above code through a series of scripts.
-Note that steps 1 and 3 below each require several days to complete on a machine with 24 CPUs @ 2.4GHz.
+Note that steps 1 and 3 below each require up to a week to complete on a machine with 24 CPUs @ 2.4GHz.
 
 1. Evolve 10 source populations in each subtask (steps 1a and 1b can run in parallel if you have enough CPUs):
 
@@ -120,20 +120,13 @@ Note that steps 1 and 3 below each require roughly 1 week to complete on a machi
 
 4. Run Test:
 
-	cd $SBBTDPATH/experiments_mspacman/gamescore
-	$SBBTDPATH/scripts/getPacmanTestTeams.sh
+	$SBBTDPATH/scripts/getPacmanTestTeams.sh 100
         for i in `seq 7100 100 8000`; do ./mspacman-runner-test.sh $i GamescoreTestTeams 100; done
 
 5. Print test results:
 
 	cd $SBBTDPATH/experiments_mspacman/gamescore
 	$SBBTDPATH/scripts/getPacmanTestResults.sh 1 7100 8000 100
-	 
-
-	
-
-      
-	
 	
 
 	
