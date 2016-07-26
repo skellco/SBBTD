@@ -1,9 +1,9 @@
-﻿=== INTRODUCTION ==============================
+﻿=== INTRODUCTION ==========================================
 
 This code was developed primarily to evolve agent behaviours for Half Field Offense (Robocup 2D Soccer) and Ms. Pac-Man.
 The current distribution includes a generic learning algorithm and interfaces for both task domains.
 
-=== DEPENDENCIES ==============================
+=== DEPENDENCIES ===========================================
 
 Operating system: Linux or Unix variant recommended.
 
@@ -26,13 +26,13 @@ RoboCup only:
 	flex
 	bison (bison 2.7 version required)
 
-=== COMPILING =================================
+=== COMPILING ==============================================
 
 After installing dependencis, navigate to the main SBBTD directory and type:
 
 	scons
 
-=== RUNNING EXPERIMENTS =======================
+=== RUNNING EXPERIMENTS ====================================
 
 These instructions will reproduce experiments detailed in a report that is currently under review for publication. 
 The tutorial will be fleshed out with further details and references to that report once it is published. 
@@ -47,7 +47,7 @@ Before starting, navigate to the root SBBTD directory and set the SBBTDPATH envi
 
 	export SBBTDPATH=`pwd`
 
-=== Ms. Pac-Man ======
+=== Ms. Pac-Man ==========
 
 Source code for the Ms. Pac-Man experiments can be found in:
 
@@ -95,8 +95,7 @@ Note that steps 1 and 3 below each require roughly 1 week to complete on a machi
 	cd $SBBTDPATH/runPacman
 	$SBBTDPATH/scripts/getPacmanTestResults.sh 1 7100 8000 100
 	
-
-=== Half Field Offense ======
+=== Half Field Offense ==========
 
 Source code for the Half Field Offense experiments can be found in:
 
