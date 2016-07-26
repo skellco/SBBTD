@@ -2,8 +2,8 @@
 task=$1
 
 if [ "$task" == "mspacman" ]; then
-MgapA=$(cat $SBBTDPATH/mspacman-ghostscore/genScript.pl | grep "my $Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
-MgapB=$(cat $SBBTDPATH/mspacman-pillscore/genScript.pl | grep "my $Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
+MgapA=$(cat $SBBTDPATH/experiments_mspacman/ghostscore/genScript.pl | grep "my \$Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
+MgapB=$(cat $SBBTDPATH/experiments_mspacman/pillscore/genScript.pl | grep "my \$Mgap =" | awk -F"=" '{print $2}' | awk '{print $1}' | tr -d ';')
 compositeDirA="ghostscore-composite"
 teamsA="ghostscore_BestFromEachRun.rslt"
 compositeDirB="pillscore-composite"
@@ -62,7 +62,7 @@ rm composit-teams
 echo "endTeamPop" >> composit-1
 
 #combine checkpoints containing teamsA and teamsB 
-../scripts/combineCheckpoints.sh composit-1  TransferSourcePolicies/compA  composit-2
+$SBBTDPATH/scripts/combineCheckpoints.sh composit-1  TransferSourcePolicies/compA  composit-2
 mv composit-2 TransferSourcePolicies/cp.0.0.-1.7100.0.rslt
 sed -i '/seed:/ c\seed:7100' TransferSourcePolicies/cp.0.0.-1.7100.0.rslt #final checkpoint containing all teams
 rm composit-1

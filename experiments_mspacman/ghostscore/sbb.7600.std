@@ -1,0 +1,91 @@
+mspacmanSBBAgent parameters:
+
+seed 7600
+port 7600
+tMain 3
+numLevels 1
+statMod 5
+hostFitnessMode 3
+
+sbbTD parameters:
+seed 7600
+paretoEpsilonTeam 0.001
+teamPow 3
+monolithic 0
+Msize 4
+pmd 0.7
+pma 0.7
+pmm 0.2
+pmn 0.1
+omega 30
+numLevels 1
+Mgap 2
+maxProgSize 96
+pBidMutate 1
+pBidSwap 1
+pBidDelete 0.5
+pBidAdd 0.5
+diversityMode 7
+stateDiscretizationSteps 3
+pNoveltyGeno 0.2
+pNoveltyPheno 0.4
+validPhaseEpochs 25
+testPhaseEpochs 1000
+episodesPerGeneration 3
+
+Starting level 0
+sbb::initTeamsTime sec 0
+Starting generation 1
+runEval 0 t 1 level 0 tm 7600000runEval 1 t 1 level 0 tm 7600000runEval 2 t 1 level 0 tm 7600000runEval 3 t 1 level 0 tm 7600001runEval 4 t 1 level 0 tm 7600001runEval 5 t 1 level 0 tm 7600001runEval 6 t 1 level 0 tm 7600002runEval 7 t 1 level 0 tm 7600002runEval 8 t 1 level 0 tm 7600002runEval 9 t 1 level 0 tm 7600003runEval 10 t 1 level 0 tm 7600003runEval 11 t 1 level 0 tm 7600003sbb::paretoRanking t 1 l 0 _fitMode 3 _distMode 0 numFront 2 numDom 2 [id,fit,nov_0,nov_1,score] dominated [7600000,0.0000000000000000,0.6666666666666666,0.0892857142857143,0.5000000000000000] [7600003,0.0000000000000000,0.6666666666666666,0.0644841269841270,0.5000000000000000]  nonDominated [7600001,0.0000000000000000,1.0000000000000000,0.0992063492063492,1.0000000000000000] [7600002,0.0000000000000000,1.0000000000000000,0.0644841269841270,1.0000000000000000] 
+sbb::selTeams deletedAge 0 0 numDeleted 2 numOldDeleted 0 keptAge 0 0 keptIds 7600001 7600002
+-------------------------------------------------------------------
+   teamsToString t 1 runningLevel 0  team::toString id 7600001 gtime 1 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 1 runningLevel 0  learners 7600002(37552272)->0(a) 7600003(37553984)->1(a)A
+teamout id 7600001 size 2 active 1 nodes 3 gtime 1 feat 1 0.500 uniqfeat 1 0.500 lsize 22 11.000 lesize 2 1.000 id 7600002 7600003 size 9 13 esize 1 1 gtime 1 1 refs 1 2 action 0 1 numfeat 0 1 lfeat lact 0 lfid lact 1 lfid 8 featid 8 idA 7600003 sizeA 13 esizeA 1 gtimeA 1 refsA 2 actionA 1 numfeatA 1 lfeatA lactA 1 lfidA 8 featidA 8
+tminfo t 1 lev 0 id 7600001 gtime 1 size 2 asize 1 age 0 numOut 3 meanReward_1 0.000 meanReward_2 0.000 meanReward_3 0.000 fit 0.000 nov_0 1.000 nov_1 0.099 score 1.000 ePolicyInstructions 2 policyInstructions 22 policyHosts 7600001 members  |7600002:0| |7600003:1| amembers  |7600003:1:2| childUp 1 ancestors allOutcomes [0.000:0.000,0.000,0.000] [0.000:0.000,0.000,0.000] [0.000:0.000,0.000,0.000] behaviourProfile -200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000policyFeatures uniq 1 feat  8
+-------------------------------------------------------------------
+   teamsToString t 1 runningLevel 0  team::toString id 7600002 gtime 1 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 1 runningLevel 0  learners 7600003(37553984)->1(a) 7600004(37556848)->1(a)A
+teamout id 7600002 size 2 active 1 nodes 3 gtime 1 feat 6 3.000 uniqfeat 6 3.000 lsize 69 34.500 lesize 9 4.500 id 7600003 7600004 size 13 56 esize 1 8 gtime 1 1 refs 2 1 action 1 1 numfeat 1 5 lfeat lact 1 lfid 8 lact 1 lfid 4 9 16 17 28 featid 4 8 9 16 17 28 idA 7600004 sizeA 56 esizeA 8 gtimeA 1 refsA 1 actionA 1 numfeatA 5 lfeatA lactA 1 lfidA 4 9 16 17 28 featidA 4 8 9 16 17 28
+tminfo t 1 lev 0 id 7600002 gtime 1 size 2 asize 1 age 0 numOut 3 meanReward_1 40.000 meanReward_2 4.000 meanReward_3 0.000 fit 0.000 nov_0 1.000 nov_1 0.064 score 1.000 ePolicyInstructions 9 policyInstructions 69 policyHosts 7600002 members  |7600003:1| |7600004:1| amembers  |7600004:1:1| childUp 1 ancestors7600001 allOutcomes [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] behaviourProfile -200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000policyFeatures uniq 5 feat  4 9 16 17 28
+-------------------------------------------------------------------
+sbb::genTime t 1 sec 7 (7 InGame, 0 genTeams, 0 selTeams, 0 cleanup)
+scm::symStat lrefs 7600002:1 7600003:2 7600004:1
+scm::stats seed 7600 t 1 lev 0 Lsize 3 msize 2 2 2 2 2 mnode 3 3 3 3 3 lrefs 1 1 1 2 2 lsize 9 9 13 56 56 lesize 1 1 1 8 8 meanMeanOut 20.000 2.000 0.000 maxMeanOut 40.000 4.000 0.000 maxMeanAge 0 0 1 numOutcomesForMaxMean 3 3 0 maxMeanSize 2 2 0 minMeanOut 0.000 0.000 0.000 minMeanAge 0 0 0 numOutcomesForMinMean 3 3 3 minMeanSize 2 2 2 maxAge -9223372036854775807 simTime 0 nrefs 4 meanAge 0.000 meanChildUp 1.000 allNumOutcomes 3 3
+scmImplicit::stats seed 7600 t 1 lev 0 sharedlearners 2 ids 7600001 7600002 matrix 2 1 0 2
+scmImplicit::stats id -1 seed 7600 t 1 lev 0 olaphist mat 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Starting generation 2
+runEval 0 t 2 level 0 tm 7600004runEval 1 t 2 level 0 tm 7600004runEval 2 t 2 level 0 tm 7600004runEval 3 t 2 level 0 tm 7600005runEval 4 t 2 level 0 tm 7600005runEval 5 t 2 level 0 tm 7600005sbb::paretoRanking t 2 l 0 _fitMode 3 _distMode 1 numFront 1 numDom 3 [id,fit,nov_0,nov_1,score] dominated [7600001,0.0000000000000000,1.0000000000000000,0.1336085509472606,0.5000000000000000] [7600002,0.0000000000000000,0.6666666666666666,0.1296082949308756,0.2500000000000000] [7600004,0.0000000000000000,0.6666666666666666,0.1388888888888889,0.7500000000000000]  nonDominated [7600005,0.0000000000000000,1.0000000000000000,0.1534498207885304,1.0000000000000000] 
+sbb::selTeams deletedAge 1 1 numDeleted 2 numOldDeleted 2 keptAge 0 0 keptIds 7600004 7600005
+-------------------------------------------------------------------
+   teamsToString t 2 runningLevel 0  team::toString id 7600004 gtime 2 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 2 runningLevel 0  learners 7600006(37556608)->0(a) 7600004(37556848)->1(a)A
+teamout id 7600004 size 2 active 1 nodes 3 gtime 2 feat 6 3.000 uniqfeat 6 3.000 lsize 65 32.500 lesize 10 5.000 id 7600006 7600004 size 9 56 esize 2 8 gtime 2 1 refs 1 1 action 0 1 numfeat 1 5 lfeat lact 0 lfid 14 lact 1 lfid 4 9 16 17 28 featid 4 9 14 16 17 28 idA 7600004 sizeA 56 esizeA 8 gtimeA 1 refsA 1 actionA 1 numfeatA 5 lfeatA lactA 1 lfidA 4 9 16 17 28 featidA 4 9 14 16 17 28
+tminfo t 2 lev 0 id 7600004 gtime 2 size 2 asize 1 age 0 numOut 3 meanReward_1 40.000 meanReward_2 4.000 meanReward_3 0.000 fit 0.000 nov_0 0.667 nov_1 0.139 score 0.750 ePolicyInstructions 10 policyInstructions 65 policyHosts 7600004 members  |7600006:0| |7600004:1| amembers  |7600004:1:1| childUp 1 ancestors7600002 7600001 allOutcomes [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] behaviourProfile -200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000policyFeatures uniq 5 feat  4 9 16 17 28
+-------------------------------------------------------------------
+   teamsToString t 2 runningLevel 0  team::toString id 7600005 gtime 2 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 2 runningLevel 0  learners 7600007(37545632)->1(a)A 7600003(37553984)->1(a)
+teamout id 7600005 size 2 active 1 nodes 3 gtime 2 feat 5 2.500 uniqfeat 5 2.500 lsize 69 34.500 lesize 8 4.000 id 7600007 7600003 size 56 13 esize 7 1 gtime 2 1 refs 1 1 action 1 1 numfeat 4 1 lfeat lact 1 lfid 4 16 17 28 lact 1 lfid 8 featid 4 8 16 17 28 idA 7600007 sizeA 56 esizeA 7 gtimeA 2 refsA 1 actionA 1 numfeatA 4 lfeatA lactA 1 lfidA 4 16 17 28 featidA 4 8 16 17 28
+tminfo t 2 lev 0 id 7600005 gtime 2 size 2 asize 1 age 0 numOut 3 meanReward_1 113.333 meanReward_2 11.333 meanReward_3 0.000 fit 0.000 nov_0 1.000 nov_1 0.153 score 1.000 ePolicyInstructions 8 policyInstructions 69 policyHosts 7600005 members  |7600007:1| |7600003:1| amembers  |7600007:1:1| childUp 1 ancestors7600001 allOutcomes [70.000:70.000,7.000,0.000] [70.000:70.000,7.000,0.000] [200.000:200.000,20.000,0.000] behaviourProfile -100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000policyFeatures uniq 4 feat  4 16 17 28
+-------------------------------------------------------------------
+sbb::genTime t 2 sec 2 (2 InGame, 0 genTeams, 0 selTeams, 0 cleanup)
+Starting generation 3
+runEval 0 t 3 level 0 tm 7600006runEval 1 t 3 level 0 tm 7600006runEval 2 t 3 level 0 tm 7600006runEval 3 t 3 level 0 tm 7600007runEval 4 t 3 level 0 tm 7600007runEval 5 t 3 level 0 tm 7600007sbb::paretoRanking t 3 l 0 _fitMode 3 _distMode 1 numFront 1 numDom 3 [id,fit,nov_0,nov_1,score] dominated [7600004,0.0000000000000000,0.6666666666666666,0.1299283154121864,0.7500000000000000] [7600006,0.0000000000000000,0.6666666666666666,0.0948860727086534,0.5000000000000000] [7600007,0.0000000000000000,1.0000000000000000,0.0948860727086534,0.5000000000000000]  nonDominated [7600005,0.0000000000000000,1.0000000000000000,0.1584101382488479,1.0000000000000000] 
+sbb::selTeams deletedAge 0 0 numDeleted 2 numOldDeleted 0 keptAge 1 1 keptIds 7600004 7600005
+-------------------------------------------------------------------
+   teamsToString t 3 runningLevel 0  team::toString id 7600004 gtime 2 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 3 runningLevel 0  learners 7600006(37556608)->0(a) 7600004(37556848)->1(a)A
+teamout id 7600004 size 2 active 1 nodes 3 gtime 2 feat 6 3.000 uniqfeat 6 3.000 lsize 65 32.500 lesize 10 5.000 id 7600006 7600004 size 9 56 esize 2 8 gtime 2 1 refs 1 1 action 0 1 numfeat 1 5 lfeat lact 0 lfid 14 lact 1 lfid 4 9 16 17 28 featid 4 9 14 16 17 28 idA 7600004 sizeA 56 esizeA 8 gtimeA 1 refsA 1 actionA 1 numfeatA 5 lfeatA lactA 1 lfidA 4 9 16 17 28 featidA 4 9 14 16 17 28
+tminfo t 3 lev 0 id 7600004 gtime 2 size 2 asize 1 age 1 numOut 3 meanReward_1 40.000 meanReward_2 4.000 meanReward_3 0.000 fit 0.000 nov_0 0.667 nov_1 0.130 score 0.750 ePolicyInstructions 10 policyInstructions 65 policyHosts 7600004 members  |7600006:0| |7600004:1| amembers  |7600004:1:1| childUp 1 ancestors7600002 7600001 allOutcomes [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] [40.000:40.000,4.000,0.000] behaviourProfile -200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-200001110000111011101110111000-400001110000111011101110111000-400001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000policyFeatures uniq 5 feat  4 9 16 17 28
+-------------------------------------------------------------------
+   teamsToString t 3 runningLevel 0  team::toString id 7600005 gtime 2 lev 0 nodes 3 numOut 3 size 2 asize 1
+   teamsToString t 3 runningLevel 0  learners 7600007(37545632)->1(a)A 7600003(37553984)->1(a)
+teamout id 7600005 size 2 active 1 nodes 3 gtime 2 feat 5 2.500 uniqfeat 5 2.500 lsize 69 34.500 lesize 8 4.000 id 7600007 7600003 size 56 13 esize 7 1 gtime 2 1 refs 1 1 action 1 1 numfeat 4 1 lfeat lact 1 lfid 4 16 17 28 lact 1 lfid 8 featid 4 8 16 17 28 idA 7600007 sizeA 56 esizeA 7 gtimeA 2 refsA 1 actionA 1 numfeatA 4 lfeatA lactA 1 lfidA 4 16 17 28 featidA 4 8 16 17 28
+tminfo t 3 lev 0 id 7600005 gtime 2 size 2 asize 1 age 1 numOut 3 meanReward_1 113.333 meanReward_2 11.333 meanReward_3 0.000 fit 0.000 nov_0 1.000 nov_1 0.158 score 1.000 ePolicyInstructions 8 policyInstructions 69 policyHosts 7600005 members  |7600007:1| |7600003:1| amembers  |7600007:1:1| childUp 1 ancestors7600001 allOutcomes [70.000:70.000,7.000,0.000] [70.000:70.000,7.000,0.000] [200.000:200.000,20.000,0.000] behaviourProfile -100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000-100001110000111011101110111000policyFeatures uniq 4 feat  4 16 17 28
+-------------------------------------------------------------------
+sbb::genTime t 3 sec 2 (2 InGame, 0 genTeams, 0 selTeams, 0 cleanup)
+scm::symStat lrefs 7600007:1 7600003:1 7600006:1 7600004:1
+scm::stats seed 7600 t 3 lev 0 Lsize 4 msize 2 2 2 2 2 mnode 3 3 3 3 3 lrefs 1 1 1 1 1 lsize 9 13 56 56 56 lesize 1 2 7 8 8 meanMeanOut 76.667 7.667 0.000 maxMeanOut 113.333 11.333 0.000 maxMeanAge 1 1 3 numOutcomesForMaxMean 3 3 0 maxMeanSize 2 2 0 minMeanOut 40.000 4.000 0.000 minMeanAge 1 1 1 numOutcomesForMinMean 3 3 3 minMeanSize 2 2 2 maxAge -9223372036854775805 simTime 0 nrefs 4 meanAge 1.000 meanChildUp 1.000 allNumOutcomes 3 3
+scmImplicit::stats seed 7600 t 3 lev 0 sharedlearners 2 ids 7600004 7600005 matrix 2 0 0 2
+scmImplicit::stats id -1 seed 7600 t 3 lev 0 olaphist mat 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Goodbye cruel world.

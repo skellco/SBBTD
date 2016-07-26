@@ -1,0 +1,41 @@
+mspacmanSBBAgent parameters:
+
+seed 7100
+port 7100
+tMain 3
+numLevels 2
+statMod 5
+hostFitnessMode 1
+startNewLevel 1
+chechkpoint 1
+checkPointInMode 0
+tPickup 0
+levelPickup 0
+
+sbbTD parameters:
+seed 7100
+paretoEpsilonTeam 0.001
+teamPow 3
+monolithic 0
+Msize 4
+pmd 0.7
+pma 0.7
+pmm 0.2
+pmn 0.1
+omega 30
+numLevels 2
+Mgap 2
+maxProgSize 96
+pBidMutate 1
+pBidSwap 1
+pBidDelete 0.5
+pBidAdd 0.5
+diversityMode 7
+stateDiscretizationSteps 3
+pNoveltyGeno 0.2
+pNoveltyPheno 0.4
+validPhaseEpochs 25
+testPhaseEpochs 1000
+episodesPerGeneration 10
+
+Starting level 1

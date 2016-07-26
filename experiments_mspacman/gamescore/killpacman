@@ -1,0 +1,4 @@
+#!/bin/bash
+pkill -f MsPacManSimulator
+pkill -f mspacmanSBBAgent
+pkill -f mspacman-runner
