@@ -47,6 +47,45 @@ Before starting, navigate to the root SBBTD directory and set the SBBTDPATH envi
 
 	export SBBTDPATH=`pwd`
 
+=== Half Field Offense ==========
+
+Source code for the Half Field Offense experiments can be found in:
+
+Game Server: see rcssserver in dependencies
+Learning Agents: src/cpp/players 
+Experiment: src/cpp/experiments_robocup
+SBBTD Algorithm: src/cpp/sbbTD 
+
+Once compiled, the experiment consists of calling the above code through a series of scripts.
+Note that steps 1 and 3 below each require several days to complete on a machine with 24 CPUs @ 2.4GHz.
+
+1. Evolve 10 source populations in each subtask (steps 1a and 1b can run in parallel if you have enough CPUs):
+
+1a. Keepaway task:
+
+	cd $SBBTDPATH/experiments_robocup/keepaway
+	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
+
+1b. Scoring task:
+
+	cd $SBBTDPATH/experiments_robocup/scoring
+	for i in `seq 8100 100 9000`; do ./soccer-runner.sh $i; done
+
+2. Compile and filter source task populations.
+
+	$SBBTDPATH/scripts/compileAndFilterSourceTaskPops_robocup.sh
+
+3. Evolve 10 target task populations:
+	
+	cd $SBBTDPATH/experiments_robocup/hfo
+	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
+
+4. Print test results:
+
+	cd $SBBTDPATH/experiments_robocup/hfo
+	$SBBTDPATH/scripts/getHFOTestResults.sh
+
+
 === Ms. Pac-Man ==========
 
 Source code for the Ms. Pac-Man experiments can be found in:
@@ -94,44 +133,7 @@ Note that steps 1 and 3 below each require roughly 1 week to complete on a machi
 
 	cd $SBBTDPATH/runPacman
 	$SBBTDPATH/scripts/getPacmanTestResults.sh 1 7100 8000 100
-	
-=== Half Field Offense ==========
-
-Source code for the Half Field Offense experiments can be found in:
-
-Game Server: see rcssserver in dependencies
-Learning Agents: src/cpp/players 
-Experiment: src/cpp/experiments_robocup
-SBBTD Algorithm: src/cpp/sbbTD 
-
-Once compiled, the experiment consists of calling the above code through a series of scripts.
-Note that steps 1 and 3 below each require several days to complete on a machine with 24 CPUs @ 2.4GHz.
-
-1. Evolve 10 source populations in each subtask (steps 1a and 1b can run in parallel if you have enough CPUs):
-
-1a. Keepaway task:
-
-	cd $SBBTDPATH/experiments_robocup/keepaway
-	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
-
-1b. Scoring task:
-
-	cd $SBBTDPATH/experiments_robocup/scoring
-	for i in `seq 8100 100 9000`; do ./soccer-runner.sh $i; done
-
-2. Compile and filter source task populations.
-
-	$SBBTDPATH/scripts/compileAndFilterSourceTaskPops_robocup.sh
-
-3. Evolve 10 target task populations:
-	
-	cd $SBBTDPATH/experiments_robocup/hfo
-	for i in `seq 7100 100 8000`; do ./soccer-runner.sh $i; done
-
-4. Print test results:
-
-	cd $SBBTDPATH/experiments_robocup/hfo
-	$SBBTDPATH/scripts/getHFOTestResults.sh 
+	 
 
 	
 
