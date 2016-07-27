@@ -12,6 +12,7 @@ The following software is required by the SBB learning algorithm:
 	scons	 
 	g++ 
 	libbz2-dev
+	R (for visualizing results only)
 
 Additional software for task domains:
 
@@ -38,8 +39,9 @@ These instructions will reproduce experiments detailed in a report that is curre
 The tutorial will be fleshed out with further details and references to that report once it is published. 
 
 In each domain, the best experimental case (in terms of gameplay and model complexity) incorporated both 
-transfer learning and multiple, task-agnostic diversity mechanisms. Animations of 'champion' evloved policies in 
-each domain are linked in the README.md file. The following steps will produce similar results. 
+transfer learning and multiple, task-agnostic diversity mechanisms, labeled SBB.TD in the report. Animations of 
+'champion' evloved policies in each domain are linked in the README.md file. The following steps will produce 
+similar results. 
 
 In both domains, learning agents communicate with the game server through sockets.
 
@@ -52,7 +54,7 @@ Before starting, navigate to the root SBBTD directory and set the SBBTDPATH envi
 Source code for the Half Field Offense experiments can be found in:
 
 Game Server: see rcssserver in dependencies
-Learning Agents: src/cpp/players 
+Learning Agents (and hand coded robocup agents): src/cpp/players 
 Experiment: src/cpp/experiments_robocup
 SBBTD Algorithm: src/cpp/sbbTD 
 
@@ -84,7 +86,6 @@ Note that steps 1 and 3 below each require up to a week to complete on a machine
 
 	cd $SBBTDPATH/experiments_robocup/hfo
 	$SBBTDPATH/scripts/getHFOTestResults.sh
-
 
 === Ms. Pac-Man ==========
 
@@ -127,8 +128,6 @@ Note that steps 1 and 3 below each require roughly 1 week to complete on a machi
 
 	cd $SBBTDPATH/experiments_mspacman/gamescore
 	$SBBTDPATH/scripts/getPacmanTestResults.sh 1 7100 8000 100
-	
-
 	
 
 	
