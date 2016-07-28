@@ -12,6 +12,7 @@ The following software is required by the SBB learning algorithm:
 	scons	 
 	g++ 
 	libbz2-dev
+	liblo-0.28 http://liblo.sourceforge.net/ 
 	R (for visualizing results only)
 
 Additional software for task domains:
