@@ -31,7 +31,7 @@ S. Kelly, P. Lichodzijewski, and M. I. Heywood, “On run time libraries and hie
 
 TASK ENVIRONMENTS
 
-Code for the Half Field Offense task (src/...) is derived from earlier work by Peter Stone and Shivaram Kalyanakrishnan, now published here: https://www.cs.utexas.edu/~AustinVilla/sim/halffieldoffense/
+Code for the Half Field Offense task (src/cpp/players) is derived from earlier work by Peter Stone and Shivaram Kalyanakrishnan, now published here: https://www.cs.utexas.edu/~AustinVilla/sim/halffieldoffense/
 
 The Ms. Pac-Man environment included herein () is derived from code released by Jacob Schrum, available here: http://www.cs.utexas.edu/users/ai-lab/?mm-neat
 
