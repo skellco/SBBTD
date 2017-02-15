@@ -287,6 +287,7 @@ void runEval(lo::Address &e_policyAnimator, lo::Address &e_mspacmanServer, sbbTD
             //behaviourSequence.push_back(discretize(xCoord,0,116,3));
             //behaviourSequence.push_back(discretize(yCoord,0,116,3));
             e_mspacmanServer.send("act", "i", currentAction);
+            cout << endl << "ai3154 state " << vecToStr(currentState) << " " << currentAction+1 << endl;
             step++;
             decisionInstructionsSum += decisionInstructions;
             if (visual){
