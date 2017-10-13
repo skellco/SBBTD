@@ -1,4 +1,4 @@
-﻿=== Update July 19, 2016: This distribution now includes both task domains: Half Field Offense and Ms. Pac-Man. ===
+﻿=== Please Note: This code distribution is a work in progress and is intended for research purposes only. ===
 
 Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
 of simple programs. SBBTD is an extension of the original c++ code for 
