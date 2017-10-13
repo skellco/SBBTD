@@ -36,7 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 extern LoggerDraw LogDraw;
 
-ShootgoalPlayer::ShootgoalPlayer( PolicyAgent  *pa, ActHandler *act, WorldModel *wm, 
+ShootgoalPlayer::ShootgoalPlayer(PolicyAgent *pa, ActHandler *act, WorldModel *wm, 
 				ServerSettings *ss, PlayerSettings *ps,
 				char* strTeamName, int id, int iNumKeepers, int iNumTakers,
 				bool isGoalie,

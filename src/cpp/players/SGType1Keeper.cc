@@ -50,7 +50,7 @@ SGType1Keeper::SGType1Keeper( SarsaAgent  *sa, SBBAgent *sbba, ActHandler *act, 
 {
    SA = sa;
    SBBA = sbba;
-   WM->setTaskType(TASK_SHOOTGOALVOICED);	
+   WM->setTaskType(TASK_SHOOTGOAL);	
    WM->resetNewTrainerMessageHeard();  
    WM->setNewEpisode( false );
 
@@ -261,58 +261,58 @@ SoccerCommand SGType1Keeper::keeperWithBall()
             action = SBBA->selectAction(state, WM->getCurrentTime().getTime() - m_timeStartEpisode.getTime());
          //cout << "selectActionTime: " << (clock() - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms" << endl;
 
-         SoccerCommand soc;
-         char *yellMessage = WM->shootgoalTaskMakeStringToSay(state, action);
+         //SoccerCommand soc;
+         //char *yellMessage = WM->shootgoalTaskMakeStringToSay(state, action);
 
-         soc = communicate(yellMessage);
-         //Don't communicate twice in the same cycle: should never happen, but just in case!
-         if(WM->getCurrentCycle() != WM->timeLastSayMessageSent() + 1)
-         {
-            ACT->putCommandInQueue(soc);
-            /*
-               fstream file;
-               file.open("beta.txt", ios::out | ios::app);
-               file << "Cycle: " << WM->getCurrentCycle() << " Player " << WM->getPlayerNumber() << " sending: " << yellMessage << endl;
-               file.close();
-               */		
-            WM->setTimeLastSayMessageSent(WM->getCurrentCycle());
+         //soc = communicate(yellMessage);
+         ////Don't communicate twice in the same cycle: should never happen, but just in case!
+         //if(WM->getCurrentCycle() != WM->timeLastSayMessageSent() + 1)
+         //{
+         //   ACT->putCommandInQueue(soc);
+         //   /*
+         //      fstream file;
+         //      file.open("beta.txt", ios::out | ios::app);
+         //      file << "Cycle: " << WM->getCurrentCycle() << " Player " << WM->getPlayerNumber() << " sending: " << yellMessage << endl;
+         //      file.close();
+         //      */		
+         //   WM->setTimeLastSayMessageSent(WM->getCurrentCycle());
 
-         }
+         //}
 
-         if((strlen(m_stateLogFile) > 9))///////Bad hack
-         {
+         //if((strlen(m_stateLogFile) > 9))///////Bad hack
+         //{
 
-            fstream file;
-            file.open(m_stateLogFile, ios::out | ios::app);
-            double dummyState[100];
-            int numStates = WM->SGkeeperStateVars( dummyState );		
+         //   fstream file;
+         //   file.open(m_stateLogFile, ios::out | ios::app);
+         //   double dummyState[100];
+         //   int numStates = WM->SGkeeperStateVars( dummyState );		
 
-            file << m_episodeNumber << "\t";
-            for(int i = 0; i < numStates; i++)
-            {
-               file << state[i] << "\t";
-               //fprintf(file, "%lf", state[i]);
+         //   file << m_episodeNumber << "\t";
+         //   for(int i = 0; i < numStates; i++)
+         //   {
+         //      file << state[i] << "\t";
+         //      //fprintf(file, "%lf", state[i]);
 
-               //char buffer[100];
-               //double d = state[i];
-               //sprintf(buffer, "%lf", d);
-               //sscanf(buffer, "%lf", &d);
-               //state[i] = d;
+         //      //char buffer[100];
+         //      //double d = state[i];
+         //      //sprintf(buffer, "%lf", d);
+         //      //sscanf(buffer, "%lf", &d);
+         //      //state[i] = d;
 
-            }	
+         //   }	
 
-            file << action << "\t";//Action taken
-            file << "ABRACADABRA"; 
-            file << suggestedAction;//Action suggested--valid only in transfer mode (otherwise -1)
+         //   file << action << "\t";//Action taken
+         //   file << "ABRACADABRA"; 
+         //   file << suggestedAction;//Action suggested--valid only in transfer mode (otherwise -1)
 
-            file << endl;
+         //   file << endl;
 
-            file.close();
+         //   file.close();
 
-            //if(action != SA->bestAction(state))
-            //cout << "ALPHABETAGAMMADELTA" << endl;
+         //   //if(action != SA->bestAction(state))
+         //   //cout << "ALPHABETAGAMMADELTA" << endl;
 
-         }
+         //}
       }
 
       WM->setLastAction( action );

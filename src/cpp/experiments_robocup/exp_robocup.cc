@@ -74,7 +74,7 @@ int main (int argc, char* argv[])
                break;
             case 'l':
                str   = &argv[i+1][0];
-               levelStart = Parse::parseFirstInt( &str );
+               levelStart = levelPickup = Parse::parseFirstInt( &str );
                break;
             case 'm':
                monitor = 1; 

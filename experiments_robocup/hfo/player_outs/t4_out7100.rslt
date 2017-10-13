@@ -9,9 +9,5 @@ Hetero index 14 >= max 7! Ignoring!
 Hetero index 15 >= max 7! Ignoring!
 Hetero index 16 >= max 7! Ignoring!
 Hetero index 17 >= max 7! Ignoring!
-[get_printable_char]: warning: 75 was above bounds
-[get_printable_char]: warning: 75 was above bounds
-Shutting down player 4
-   Number of holes: 1 (0.729927)
-   Teammates seen: 561 (4.094891)
-   Opponents seen: 584 (4.262774)
+[get_printable_char]: warning: 74 was above bounds
+[get_printable_char]: warning: 74 was above bounds

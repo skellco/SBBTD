@@ -3,14 +3,14 @@ seed 7100
 paretoEpsilonTeam 0.001
 teamPow 3
 monolithic 0
-Msize 4
+Msize 180
 pmd 0.7
 pma 0.7
 pmm 0.2
 pmn 0.1
 omega 30
-numLevels 2
-Mgap 2
+numLevels 1
+Mgap 90
 maxProgSize 96
 pBidMutate 1
 pBidSwap 1
@@ -21,8 +21,8 @@ stateDiscretizationSteps 3
 pNoveltyGeno 0.2
 pNoveltyPheno 0.4
 validPhaseEpochs 3
-testPhaseEpochs 3
-episodesPerGeneration 3
+testPhaseEpochs 1000
+episodesPerGeneration 5
 
 Hetero index 7 >= max 7! Ignoring!
 Hetero index 8 >= max 7! Ignoring!
@@ -36,7 +36,3 @@ Hetero index 15 >= max 7! Ignoring!
 Hetero index 16 >= max 7! Ignoring!
 Hetero index 17 >= max 7! Ignoring!
 [get_printable_char]: warning: -1 was below bounds
-Shutting down player 3
-   Number of holes: 0 (0.000000)
-   Teammates seen: 551 (4.021898)
-   Opponents seen: 572 (4.175182)
