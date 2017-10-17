@@ -1,6 +1,0 @@
-#!/bin/sh
-pkill -f Trainer
-pkill -f exp_robocup
-pkill -f rcssserver
-pkill -f soccer_player
-pkill -f rcssmonitor

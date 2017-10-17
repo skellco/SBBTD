@@ -1,4 +1,4 @@
-﻿=== Please Note: This code distribution is a work in progress and is intended for research purposes only. ===
+﻿=== This code distribution is a work in progress and is intended for research purposes only. Detailed tutorial coming soon. ===
 
 Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
 of simple programs. SBBTD is an extension of the original c++ code for 
