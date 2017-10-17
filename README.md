@@ -1,4 +1,5 @@
-﻿=== This code distribution is a work in progress and is intended for research purposes only. Detailed tutorial coming soon. ===
+This code distribution is a work in progress and is intended for research purposes only. 
+Detailed tutorial coming soon.
 
 Symbiotic Bid-Based GP (SBB) is a hierarchical framework for coevolving teams 
 of simple programs. SBBTD is an extension of the original c++ code for 
@@ -11,8 +12,6 @@ Half Field Offense: https://youtu.be/ZPqa-m0x4so
 Ms. Pac-Man: https://youtu.be/xRt0AVn5HlI
 
 (Note that you can change the speed of video playback by clicking on settings in the lower-right corner.)
-
-For instructions on how to run this code, see TUTORIAL.txt. 
 
 BACKGROUND
 
